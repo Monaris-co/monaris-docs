@@ -1,0 +1,100 @@
+---
+title: "Understanding Monaris Score"
+description: "How the Score works, what it means, and how to improve it"
+---
+
+## What the Monaris Score is
+
+The **Monaris Score** is a **0–1000** reputation score built from verified cashflow history. It is the central product of the platform: every other product either feeds the Score or is unlocked by it.
+
+**Tagline:** Your cashflow history, turned into a verifiable financial identity.
+
+---
+
+## Current implementation (live)
+
+- **Range:** 0–1000
+- **Tiers:** Tier C (0–510), Tier B (510–850), Tier A (850–1000)
+- **Trigger:** +20 points per cleared invoice (automatic)
+- **Display:** Score with progress bar toward the next tier
+- **Unlock ladder:** Tier C → Tier B → Tier A. Credit terms are shown as **Coming soon** until Monaris Credit launches (see [Score tiers explained](/score/tiers-explained)).
+
+---
+
+## Tier labels in plain language
+
+| Score range | Label | Meaning |
+|-------------|-------|---------|
+| 0–510 | Building | Establishing your cashflow history |
+| 510–850 | Established | Consistent, verifiable payment patterns |
+| 850–1000 | Trusted | Institutional-grade cashflow history |
+
+---
+
+## Score composition (V1 — on-chain only)
+
+| Signal | Weight | Description |
+|--------|--------|-------------|
+| Invoice completion rate | High | % of issued invoices that get paid |
+| Payment timeliness | High | % of invoices paid on or before due date |
+| Income consistency | Medium | Regularity and predictability of inflows |
+| Client diversity | Medium | Number of distinct paying counterparties |
+| Volume history | Medium | Total verified volume over time |
+| Account age | Low | Time since first Monaris activity |
+| Repayment behavior | High (V2) | On-time repayment of Monaris Credit |
+
+---
+
+## Score composition (V2 — on-chain + off-chain)
+
+All V1 signals, plus:
+
+- Bank statement consistency (via Plaid or export)
+- QuickBooks / accounting reconciliation
+- Payroll receipt verification
+- CEX balance history (via zkTLS proof)
+- Behavioral patterns: churn, disputes, defaults
+
+---
+
+## Tier thresholds — Score and volume
+
+Tiers require **both** a minimum Score **and** minimum volume. You cannot reach Tier B on points alone from a tiny volume. Volume minimums are enforced in the system.
+
+| Tier | Score minimum | Invoice minimum | Volume minimum | Credit access |
+|------|---------------|-----------------|----------------|---------------|
+| Tier C | 0 | 1 invoice cleared | $0 | None |
+| Tier B | 510 | 10 invoices cleared | $500 verified volume | Up to $5,000 credit |
+| Tier A | 850 | 25 invoices cleared | $5,000 verified volume | Up to $50,000 credit |
+| Tier A+ | Invite only | 50+ invoices | $25,000+ volume | Up to $250,000 credit |
+
+---
+
+## What you see in the app (Score explanation)
+
+Every Score display should include:
+
+1. **Current score** and tier label
+2. **Progress bar** to next tier with exact points remaining
+3. **Score breakdown** — which signals help and which need improvement
+4. **What improves your score** — up to 3 specific, actionable recommendations from Mona
+5. **Score history chart** (V2)
+
+---
+
+## How to improve your score
+
+- **Clear invoices on time.** Each cleared invoice is +20 points. On-time payments strengthen payment timeliness.
+- **Increase volume and history.** More verified volume and longer history improve income consistency and volume history.
+- **Diversify clients.** More distinct paying counterparties helps client diversity.
+- **Repay credit on time (V2).** When Monaris Credit is available, on-time repayment is a high-weight signal.
+
+Mona can give you **specific** recommendations based on your data (e.g. “Clear 3 more invoices to reach Tier B”).
+
+---
+
+## Next
+
+- [Score tiers explained](/score/tiers-explained) — Tier C, B, A, A+ requirements and benefits
+- [Sharing your Score](/score/sharing-score) — Score card, public profile, verification
+- [Meet Mona](/mona/meet-mona) — how Mona uses your Score to give insights

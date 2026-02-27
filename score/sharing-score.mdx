@@ -1,0 +1,73 @@
+---
+title: "Sharing your Score"
+description: "Score card, public profile, and verification for third parties"
+---
+
+## Why share your Score
+
+You can share your Monaris Score to prove cashflow history and reputation without handing over raw transaction data. Use cases: freelancer proposals, rental applications, contractor vetting, loan applications.
+
+---
+
+## V1 (current)
+
+- Score is visible to you in the app.
+- Progress and tier are shown with a breakdown and recommendations from Mona.
+- [PLACEHOLDER: any current share/export capability — e.g. PDF or link — to be confirmed]
+
+---
+
+## V2 — external Score sharing
+
+Planned features:
+
+### Shareable Score card
+
+- Generates a **verified credential** (image or link).
+- Shows score, tier, and optionally a short summary (e.g. “X months of verified cashflow”).
+- You choose when to generate and with whom to share.
+
+### Public Score profile
+
+- **monaris.co/score/[user-handle]** (or equivalent).
+- Optional public page that shows a sanitized Score view (e.g. score band, tier, “verified payer” badge).
+- You control whether the profile is public or unlisted.
+
+### Selective disclosure proof
+
+- Share only what is needed (e.g. “Score ≥ 700” or “Tier B or above”) without revealing the exact score or full history.
+- Third parties can verify the claim cryptographically.
+
+### zkTLS attestation
+
+- Privacy-preserving proof that a third party can verify without seeing raw data.
+- Useful for lenders or platforms that need to check “does this user meet our Score threshold?” without getting full Monaris data.
+
+---
+
+## Score API (B2B)
+
+Third-party businesses can query Monaris Scores for their counterparties via API, **only if the user has granted permission**. Documentation for the Score API is in the [API section](/api/score-api). It covers:
+
+- Authentication and API key management
+- Query endpoint: `GET /score/{wallet_address}` (or equivalent)
+- Response schema: score, tier, confidence level, last updated
+- Consent requirement: user must have allowed their Score to be queried
+- Pricing: per-query or monthly subscription (see [Revenue model](/reference/roadmap#revenue) or product pricing)
+
+---
+
+## What is never shared without consent
+
+- Raw transaction data
+- Individual invoice or payment details (unless you explicitly share them)
+- Off-chain data (bank, accounting) used in Score calculation
+- Score factors at single-transaction level — only aggregate signals are reflected in the Score and in what you choose to share
+
+---
+
+## Next
+
+- [Understanding your Monaris Score](/score/understanding-score)
+- [Score API reference](/api/score-api)
+- [Secrets as a Service](/privacy/secrets-as-a-service) — programmable privacy and selective disclosure

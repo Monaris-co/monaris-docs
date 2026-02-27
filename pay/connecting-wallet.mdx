@@ -1,0 +1,74 @@
+---
+title: "Connecting your wallet"
+description: "Supported wallets, what Monaris reads, and privacy implications"
+---
+
+## What Monaris Pay does
+
+**Tagline:** Send, receive, and automate stablecoin payments with rules attached.
+
+Monaris Pay reads your existing wallet history, categorizes cashflows, and lets you attach rules and automation to money movement. All payments you send through Monaris Pay go through the **Privacy Router** by default (see [Private payments](/privacy/private-payments)).
+
+**Current status:** In development — V1 scope described below.
+
+---
+
+## Supported wallets (V1)
+
+- **MetaMask**
+- **WalletConnect** (EVM-compatible wallets)
+
+EVM-compatible chains only for V1.
+
+---
+
+## What happens when you connect
+
+1. You connect your wallet via the app (MetaMask or WalletConnect).
+2. Monaris reads your **existing wallet transaction history** — minimum **last 90 days**.
+3. We **auto-categorize** inflows and outflows (income, expenses, transfers, unknown).
+4. Your **cashflow timeline** is built and shown in the app.
+5. **Mona** reads your wallet history and can generate instant commentary (e.g. concentration risk, runway).
+6. The **Privacy Router** is active: any payment you send through Monaris Pay is private by default.
+
+---
+
+## What Monaris reads
+
+- Transaction history (last 90+ days)
+- Balances (at read time)
+- Counterparties (addresses)
+- Stablecoin flows (USDC, USDT)
+
+We do **not** move your funds without your explicit action. Connecting is read-only for history; you approve every payment.
+
+---
+
+## Supported stablecoins (V1)
+
+- **USDC**
+- **USDT**
+- **USMT+** (launching soon)
+
+---
+
+## Privacy
+
+- **Read data:** Transaction history and balances are used to build your cashflow picture and Score inputs. This is stored and processed in line with our [Security & privacy](/reference/security-privacy) model.
+- **Outgoing payments:** When you send a payment **through Monaris Pay**, it goes through the **Privacy Router**. Counterparties and amounts are not visible on the public chain in a readable way. See [Private payments](/privacy/private-payments).
+
+---
+
+## Supported networks (V1)
+
+- [PLACEHOLDER: confirm exact chain(s) at launch]
+- Mantle (primary — hackathon relationship)
+- [PLACEHOLDER: secondary chains]
+
+---
+
+## Next
+
+- [Your cashflow picture](/pay/cashflow-picture) — how to read the timeline and concentration risk
+- [Private payments — how it works](/privacy/private-payments)
+- [Secrets as a Service](/privacy/secrets-as-a-service)
