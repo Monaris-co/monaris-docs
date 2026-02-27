@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Monaris",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#CCFF04",
+    "light": "#E6FF7A",
+    "dark": "#6A8C00"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -17,52 +17,87 @@
             "group": "Getting started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "getting-started",
+              "invoices/creating-first-invoice",
+              "invoices/paying-invoice"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Monaris Score",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "score/understanding-score",
+              "score/tiers-explained",
+              "score/sharing-score"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Mona",
+            "pages": ["mona/meet-mona"]
+          },
+          {
+            "group": "Monaris Pay",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "pay/connecting-wallet",
+              "pay/cashflow-picture"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Privacy",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "privacy/private-payments",
+              "privacy/secrets-as-a-service"
+            ]
+          },
+          {
+            "group": "Credit",
+            "pages": [
+              "credit/monaris-credit"
+            ]
+          },
+          {
+            "group": "Monaris Business",
+            "pages": [
+              "business/teams",
+              "business/spend-policies",
+              "business/payroll",
+              "business/team-score"
+            ]
+          },
+          {
+            "group": "Concepts",
+            "pages": [
+              "concepts/cashflow-underwriting",
+              "concepts/privacy-on-blockchain",
+              "concepts/stablecoin-credit",
+              "concepts/flywheel"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/documentation-system",
+              "reference/brief-to-pages-map",
+              "reference/glossary",
+              "reference/architecture",
+              "reference/data-sources",
+              "reference/user-flows",
+              "reference/security-privacy",
+              "reference/roadmap"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "API",
         "groups": [
           {
             "group": "API documentation",
             "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api/overview",
+              "api/score-api",
+              "api/webhooks",
+              "api/privacy-api",
+              "api/integration-guide"
             ]
           }
         ]
@@ -71,14 +106,9 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "App",
+          "href": "https://app.monaris.co",
+          "icon": "arrow-up-right-from-square"
         }
       ]
     }
@@ -91,32 +121,23 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:[PLACEHOLDER: support email]"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Open app",
+      "href": "https://app.monaris.co"
     }
   },
   "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+    "options": ["copy", "view", "chatgpt", "claude", "perplexity", "mcp", "cursor", "vscode"]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/[PLACEHOLDER: Monaris handle]",
+      "github": "https://github.com/[PLACEHOLDER: Monaris org]",
+      "linkedin": "https://linkedin.com/company/[PLACEHOLDER: Monaris]"
     }
   }
 }
