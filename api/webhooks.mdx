@@ -1,0 +1,79 @@
+---
+title: "Webhook events"
+description: "Invoice events, Score events, and payment events"
+---
+
+## Overview
+
+Monaris can send **webhooks** to your endpoint when certain events occur: invoice lifecycle, Score changes, and payment events. You register a URL and subscribe to event types. We send a signed payload so you can verify authenticity.
+
+---
+
+## Event types (planned)
+
+### Invoice events
+
+| Event | Description |
+|-------|-------------|
+| `invoice.issued` | Invoice created and sent |
+| `invoice.viewed` | Recipient opened the invoice |
+| `invoice.paid` | Recipient initiated payment |
+| `invoice.cleared` | Payment confirmed; invoice cleared (+20 Score for sender) |
+
+### Score events
+
+| Event | Description |
+|-------|-------------|
+| `score.updated` | User’s Score or tier changed |
+| `score.tier_upgrade` | User reached a new tier (e.g. C → B) |
+
+### Payment events
+
+| Event | Description |
+|-------|-------------|
+| `payment.sent` | Payment sent via Monaris Pay |
+| `payment.received` | Payment received (if applicable) |
+
+[PLACEHOLDER: confirm exact event names and payload schema]
+
+---
+
+## Payload format
+
+Webhook payloads are typically **JSON**. Each event includes at least:
+
+- `event_type` — e.g. `invoice.cleared`
+- `timestamp` — when the event occurred (ISO 8601)
+- `data` — event-specific fields (invoice id, wallet, amount, etc.)
+
+[PLACEHOLDER: full schema per event type]
+
+---
+
+## Signature verification
+
+Monaris signs the request body (e.g. with HMAC-SHA256 using your webhook secret). You verify the signature before processing to ensure the request is from Monaris and not tampered.
+
+[PLACEHOLDER: header name (e.g. X-Monaris-Signature), algorithm, and example]
+
+---
+
+## Retries and idempotency
+
+- Failed deliveries (e.g. 5xx or timeout) are retried with exponential backoff.
+- [PLACEHOLDER: retry schedule and max retries]
+- Use an **idempotency key** or **event id** to deduplicate if we send the same event more than once.
+
+---
+
+## Registration
+
+[PLACEHOLDER: how to register webhook URL and subscription — e.g. dashboard, API endpoint, or both]
+
+---
+
+## Next
+
+- [API overview](/api/overview)
+- [Creating your first invoice](/invoices/creating-first-invoice)
+- [Understanding your Monaris Score](/score/understanding-score)

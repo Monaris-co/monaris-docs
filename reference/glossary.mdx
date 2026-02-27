@@ -1,0 +1,74 @@
+---
+title: "Glossary"
+description: "Terms and definitions used across Monaris"
+---
+
+## Monaris Score
+
+A 0–1000 reputation score built from verified cashflow history. The higher the score, the better the credit terms, the stronger the trust signals, and the more Monaris products unlock (e.g. Credit, better tiers). Every product feeds or uses the Score.
+
+---
+
+## Mona
+
+The AI cashflow coach built into Monaris. Mona reads your cashflow data and gives specific, actionable insights — proactively, without being asked. She is not a general chatbot; she is a specialist in your cashflow, Score, and invoices.
+
+---
+
+## Privacy Router
+
+The Monaris settlement layer that routes all payments **privately by default**. Counterparties and amounts are not visible on the public blockchain. Proof-of-payment can be anchored on-chain in a verifiable but not readable form.
+
+---
+
+## Secrets as a Service
+
+Monaris’s programmable privacy feature set. You define rules for what stays private, what can be disclosed, and to whom — at the transaction or account level. Combines privacy-by-default payments with selective disclosure proofs.
+
+---
+
+## Selective disclosure
+
+The ability to share a **cryptographic proof** of a specific claim (e.g. "I earn above $X/month" or "Score ≥ 700") without revealing the underlying data that proves it. Lets you prove things to a lender or counterparty without handing over raw history.
+
+---
+
+## Cashflow underwriting
+
+Assessing credit risk based on **income reliability**, **payment patterns**, and **cashflow history** — rather than collateral or traditional credit scores. Monaris uses it to power the Score and Monaris Credit.
+
+---
+
+## Verifiable history
+
+A cashflow record that is **provably accurate** — backed by on-chain data, cryptographic proofs, or signed attestations — and shareable without revealing raw sensitive data. The basis for the Monaris Score and credit eligibility.
+
+---
+
+## Tier C / B / A
+
+The three main **reputation tiers** of the Monaris Score. **Tier C** is entry level. **Tier B** unlocks credit up to $5,000 (when Monaris Credit is live). **Tier A** unlocks credit up to $50,000. Each tier has minimum Score, invoice count, and volume. **Tier A+** is invite-only with higher limits.
+
+---
+
+## zkTLS
+
+A **privacy-preserving proof** technology that lets Monaris verify off-chain data (e.g. bank balances, payroll) without accessing or storing the raw data. Used for selective disclosure and compliance-friendly verification. [PLACEHOLDER: technical team to specify exact proof system used.]
+
+---
+
+## Cashflow timeline
+
+The Monaris Pay feature that displays your last **90+ days** of stablecoin inflows and outflows, categorized and visualized. Built from connected wallet (and in V2, off-chain sources). Feeds the Score and Mona’s insights.
+
+---
+
+## Concentration risk
+
+When a **high percentage** of your income comes from a **single client** or counterparty. Monaris flags this (e.g. >50% from one source) as a risk signal in your cashflow picture and in Score. Diversification improves stability.
+
+---
+
+## Settlement Router
+
+The Monaris infrastructure layer that **processes payments**. All payments go through the Settlement Router; the **Privacy Router** lives inside it. Handles routing, proof anchoring, and receipt generation.

@@ -1,0 +1,50 @@
+---
+title: "Privacy API"
+description: "Selective disclosure proofs and compliance disclosure"
+---
+
+## Overview
+
+The **Privacy API** lets you (or your application) request and manage **selective disclosure proofs** and, for regulated use cases, **compliance disclosure**. All actions are subject to user consent and our [Security & privacy](/reference/security-privacy) model.
+
+---
+
+## Selective disclosure proofs
+
+- **Purpose:** Generate a **cryptographic proof** of a specific claim (e.g. “Score ≥ 700”, “payment amount in range [X, Y]”) without exposing the underlying data.
+- **User consent:** The user must authorize the proof request (e.g. in-app or via OAuth).
+- **Output:** A proof object (or credential) that a third party can verify without seeing raw Monaris data.
+
+[PLACEHOLDER: endpoint(s), request/response schema, and verification flow for third parties]
+
+---
+
+## Compliance disclosure
+
+- **Purpose:** For regulated entities that need to disclose data to a **named regulatory authority** on request.
+- **Behavior:** Disclosure is targeted (only to that authority), not public. Full **audit log** of what was disclosed, to whom, and when. User is **notified**.
+- **API:** [PLACEHOLDER: endpoint(s) for authorized compliance requests and audit log access — internal or partner-only]
+
+---
+
+## Authentication and authorization
+
+- API keys or OAuth with **scopes** that reflect permission to request proofs or compliance disclosure.
+- Consent and audit trails are required. No bulk export of raw data without explicit consent and legal basis.
+
+---
+
+## Documentation sections to expand
+
+1. **Proof request** — POST /proofs or similar; parameters (claim type, range, expiry).
+2. **Proof verification** — How a third party verifies a proof (public verification key or endpoint).
+3. **Compliance disclosure** — Who can call, audit log format, user notification.
+4. **Rate limits and SLA** — [PLACEHOLDER]
+
+---
+
+## Next
+
+- [Secrets as a Service](/privacy/secrets-as-a-service)
+- [Security & privacy model](/reference/security-privacy)
+- [API overview](/api/overview)

@@ -1,0 +1,90 @@
+---
+title: "System architecture"
+description: "High-level architecture of the Monaris cashflow stack"
+---
+
+## Architecture overview
+
+Monaris is built as a modular **cashflow stack**. Layers sit on top of each other: Product → Privacy Router → Policy Engine → Score + Ledger → Data → Smart contracts. **Mona AI** is cross-cutting: she reads all layers and writes only to UX/notifications.
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                         PRODUCT LAYER                               │
+│  Monaris Pay  │  Monaris AR/AP  │  Monaris Score  │  Monaris Biz   │
+│                         Monaris Credit                              │
+├─────────────────────────────────────────────────────────────────────┤
+│                     PRIVACY ROUTER LAYER                            │
+│  Settlement Router  │  zkProof Engine  │  Selective Disclosure      │
+│  Secrets as a Service  │  Programmable Privacy Rules                │
+├─────────────────────────────────────────────────────────────────────┤
+│                       POLICY ENGINE                                 │
+│  Rules & Spend Controls  │  Approval Flows  │  Automation Triggers  │
+│  Payroll Schedules  │  Vendor Allowlists  │  Auto-Sweep / Repay     │
+├──────────────────────────┬──────────────────────────────────────────┤
+│  CASHFLOW SCORE ENGINE   │    LEDGER + ACCOUNTING CORE              │
+│  Feature Engineering     │    Canonical Ledger (event-sourced)      │
+│  Inflow Stability Score  │    Reconciliation Engine                 │
+│  Obligations Coverage    │    Multi-source Audit Trail              │
+│  Counterparty Quality    │    Invoice Matching                      │
+│  Behavioral Signals      │    Cashflow Timeline                     │
+│  Credit Readiness Output │    Private Receipt Storage               │
+├──────────────────────────┴──────────────────────────────────────────┤
+│                         DATA LAYER                                  │
+│  Onchain Indexer       │  Offchain Connectors   │  Normalizer       │
+│  Wallet txn history    │  Plaid / Open Banking  │  Standard schema  │
+│  Stablecoin flows      │  QuickBooks / Xero     │  Entity resolution│
+│  Counterparty graph    │  Payroll exports       │  Privacy filter   │
+│  Multi-chain support   │  zkTLS proof engine    │                   │
+├─────────────────────────────────────────────────────────────────────┤
+│               SMART CONTRACT LAYER (optional)                       │
+│  Escrow  │  Streaming  │  Attestations Registry  │  Settlement     │
+│  Privacy Proofs  │  Vault Contracts  │  Governance (DAO)      │
+└─────────────────────────────────────────────────────────────────────┘
+│
+│ MONA AI LAYER (cross-cutting — reads all layers, writes to UX only)
+└── Event listener → Context builder → LLM (Claude) → Notification/UI
+```
+
+---
+
+## Key design decisions
+
+### Chain-agnostic
+
+Monaris Score works across **EVM chains**. Start on highest-liquidity stablecoin networks (e.g. Ethereum, Polygon, Base, Mantle). No single-chain dependency.
+
+### Event-sourced ledger
+
+All cashflow state is derived from an **immutable event log**. Enables audit trails, time-travel queries, and verifiable history proofs — critical for underwriting and compliance.
+
+### Privacy by architecture
+
+The **Privacy Router** is not a bolt-on. It sits between the product layer and the settlement layer. Every payment is routed through it. Privacy is the default path; transparency is the exception.
+
+### Modular Score inputs
+
+- **Score V1:** on-chain data only.
+- **V2:** off-chain connectors (bank, accounting, payroll).
+- **V3:** behavioral and credit repayment signals.
+
+Each addition improves Score accuracy without breaking prior calculations.
+
+### Mona as read-only observer
+
+Mona reads from all layers but **writes only to the UX** (notifications, chat). She never executes transactions or modifies financial data on her own.
+
+---
+
+## Supported networks (V1)
+
+- [PLACEHOLDER: confirm exact chain(s) at launch]
+- Mantle (primary — hackathon relationship)
+- [PLACEHOLDER: secondary chains]
+
+---
+
+## Next
+
+- [Data sources & verification](/reference/data-sources)
+- [Security & privacy model](/reference/security-privacy)
+- [Roadmap](/reference/roadmap)

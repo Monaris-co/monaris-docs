@@ -1,0 +1,52 @@
+---
+title: "Integration guide"
+description: "How to embed Monaris Pay or Score into a third-party app"
+---
+
+## Overview
+
+You can integrate **Monaris Pay** (payments with privacy and rules) or **Monaris Score** (verification of counterparty reputation) into your own application. This page outlines the main flows and where to find the technical details.
+
+---
+
+## Embedding Monaris Pay
+
+- **Use case:** Your app sends or receives stablecoin payments; you want them to go through Monaris (Privacy Router, categorization, Score contribution).
+- **Flow:** User connects wallet (or uses existing Monaris session); your app triggers payment via API or redirect to Monaris. [PLACEHOLDER: link to Pay API docs or SDK]
+- **Requirements:** API key or OAuth; user must have a Monaris account or onboard in-context.
+
+---
+
+## Using the Score in your app
+
+- **Use case:** You want to check a user’s or counterparty’s **Monaris Score** (e.g. for underwriting, trust badge).
+- **Flow:** Use the [Score API](/api/score-api). The **wallet owner must have consented** to share their Score with you (or with Score API consumers).
+- **UX:** User grants consent in Monaris app or via OAuth; your app then calls GET /score/{wallet_address}.
+
+---
+
+## OAuth and consent
+
+- [PLACEHOLDER: OAuth scope for “read Score”, “read cashflow summary”, “send payment via Monaris” — and how consent is presented to the user]
+- Users must be able to revoke consent at any time from their Monaris account.
+
+---
+
+## SDKs and client libraries
+
+[PLACEHOLDER: link to SDKs — e.g. JS/TS, server-side — if available]
+
+---
+
+## Sandbox and testing
+
+[PLACEHOLDER: sandbox base URL, test API keys, test wallets]
+
+---
+
+## Next
+
+- [API overview](/api/overview)
+- [Score API reference](/api/score-api)
+- [Privacy API](/api/privacy-api)
+- [Connecting your wallet](/pay/connecting-wallet)

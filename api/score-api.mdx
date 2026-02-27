@@ -1,0 +1,75 @@
+---
+title: "Score API reference"
+description: "Endpoints, request/response schema, and consent requirements"
+---
+
+## Overview
+
+Third-party businesses can **query Monaris Scores** for their counterparties via API. The **user must have granted permission** for their Score to be queried. Consent is required and auditable.
+
+---
+
+## Query endpoint
+
+**GET** `/score/{wallet_address}`
+
+[PLACEHOLDER: confirm path — e.g. /v1/score/:address or /score?wallet=0x...]
+
+Returns the current Monaris Score and tier for the given wallet, **only if** the user has consented to share with the requesting party (or with any Score API consumer, depending on consent model).
+
+---
+
+## Request
+
+| Parameter | Location | Required | Description |
+|-----------|----------|----------|-------------|
+| `wallet_address` | Path | Yes | EVM address (0x...) |
+| [PLACEHOLDER: API key or app_id] | Header | Yes | Authentication |
+
+---
+
+## Response schema
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `score` | number | 0–1000 |
+| `tier` | string | "C" \| "B" \| "A" \| "A+" |
+| `confidence_level` | [PLACEHOLDER] | Optional indicator of Score stability |
+| `last_updated` | string (ISO 8601) | Last Score calculation time |
+
+[PLACEHOLDER: full schema — e.g. optional fields like breakdown, volume_minimum_met]
+
+---
+
+## Consent requirement
+
+- The **wallet owner** must have granted permission for their Score to be queried (e.g. for a specific app, or for “Score API” generally).
+- If consent is missing or revoked, the API returns an error or a “consent required” response — **not** the Score.
+- Consent is stored and can be revoked by the user in the Monaris app.
+
+---
+
+## Errors
+
+| Code | Meaning |
+|------|---------|
+| 401 | Invalid or missing API key |
+| 403 | Consent not granted for this wallet / query |
+| 404 | No Score for this wallet (e.g. never used Monaris) |
+| 429 | Rate limit exceeded |
+
+[PLACEHOLDER: exact error codes and payload shape]
+
+---
+
+## Pricing
+
+Per-query or monthly subscription. See [Roadmap — Revenue](/reference/roadmap#revenue-model-reference) or product pricing. [PLACEHOLDER: link to pricing page or exact pricing]
+
+---
+
+## Next
+
+- [Understanding your Monaris Score](/score/understanding-score)
+- [Sharing your Score](/score/sharing-score)
+- [API overview](/api/overview)

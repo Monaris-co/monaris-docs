@@ -1,0 +1,85 @@
+---
+title: "User flows — end to end"
+description: "First session, invoice payment, Score journey, private payment, credit (V2)"
+---
+
+## Flow 1: Individual user — first session
+
+1. Land on **monaris.co** or **app.monaris.co**.
+2. Sign up: **Google** or **email**.
+3. Onboarding prompt: **"Create your first invoice"** OR **"Connect your wallet"**.
+
+**If invoice path:**
+
+- Create invoice (amount, client wallet/email, due date, description).
+- Send invoice.
+- See invoice in **Issued** status.
+- Score shows 0/1000 — *"Create and clear your first invoice to start building."*
+
+**If wallet path:**
+
+- Connect wallet (MetaMask / WalletConnect).
+- Privacy Router activates automatically.
+- Monaris reads last **90 days** of transaction history.
+- Mona generates first cashflow commentary.
+- Score calculated from on-chain history.
+- Cashflow timeline appears.
+
+6. Dashboard shows: Score, recent activity, Mona insight, tier progress.
+
+---
+
+## Flow 2: Invoice payment (recipient)
+
+1. Recipient gets notification: email or Monaris inbox.
+2. Opens invoice: amount, sender, due date, description.
+3. Clicks **Pay invoice**.
+4. Connects wallet or selects saved wallet.
+5. Confirms payment.
+   - Payment routes through **Privacy Router** (private by default).
+   - Sender receives payment.
+   - Invoice status → **Cleared**.
+   - Both get **private payment receipt**.
+   - Sender’s Score: **+20 points**.
+   - Mona message fires for sender.
+
+---
+
+## Flow 3: Score improvement journey
+
+- User at Score 200/1000 (Tier C).
+- Mona: *"Clear 3 more invoices and you'll reach Tier B — that unlocks credit access."*
+- User creates invoices; clients pay; Score rises with each clearance.
+- At 450: Mona alerts *"You're 60 points from Tier B."*
+- At **510 + volume threshold met**: Tier B unlocked.
+- Mona: *"You've reached Tier B. You now qualify for up to $5,000 in credit at 10–14% APR."*
+- User can view Credit pre-approval (V2).
+
+---
+
+## Flow 4: Private payment
+
+1. User initiates payment via **Monaris Pay**.
+2. **Privacy Router** intercepts by default.
+3. User sees: *"This payment is private — only you and the recipient can see the amount."*
+4. Optional: user configures privacy for this payment (e.g. "Make this payment public" or "Private with selective disclosure").
+5. Payment executes through Privacy Router.
+6. Recipient receives full amount.
+7. On-chain: proof-of-payment anchored (verifiable, not readable publicly).
+8. Private receipt stored in both users’ Monaris accounts.
+9. Score updated internally with verified payment signal.
+
+---
+
+## Flow 5: Credit application (V2)
+
+1. User reaches **Score 700+**, **90 days history**, **$5,000+ volume**.
+2. Mona surfaces: *"Based on your cashflow history, you qualify for up to [$X]."*
+3. User clicks to see pre-approval.
+4. Credit terms shown: amount, APR, repayment schedule.
+5. User confirms: *"Yes, I want this credit."*
+6. Monaris underwrites (Score + cashflow analysis).
+7. Credit disbursed to user wallet in USDC.
+8. Repayment schedule set: tied to future invoice clearances.
+9. Mona monitors: alerts before each repayment date.
+10. On-time repayment → Score improves → future credit limit can increase.

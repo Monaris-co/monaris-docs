@@ -1,0 +1,53 @@
+---
+title: "Data sources & verification"
+description: "What Monaris reads and how we verify it"
+---
+
+## V1 data sources (on-chain only)
+
+| Source | Data points | Method |
+|--------|-------------|--------|
+| EVM wallet | Transaction history, balances, counterparties, stablecoin flows | Direct RPC indexing |
+| Monaris AR/AP | Invoice amounts, payment timing, client relationships | Internal ledger |
+| Monaris Pay | Inflow/outflow categorization, payment patterns | Internal ledger |
+
+---
+
+## V2 data sources (on-chain + off-chain)
+
+| Source | Data points | Method |
+|--------|-------------|--------|
+| Bank accounts | Statement history, account balance, ACH patterns | Plaid API or manual export |
+| Accounting tools | P&L, expense categorization, invoice reconciliation | QuickBooks / Xero API |
+| Payroll records | Salary history, employer verification, pay frequency | Signed attestation or payroll API |
+| CEX balances | Exchange holdings, trade history | zkTLS proof or exchange API |
+
+---
+
+## Verification methods
+
+| Method | What it verifies | Privacy level |
+|--------|------------------|----------------|
+| On-chain indexing | Wallet history | Public chain data |
+| API integration | Off-chain financial data | User consent required |
+| Signed attestation | Document authenticity | User submits; Monaris verifies |
+| zkTLS proof | Off-chain data without exposing raw data | High — only the proof is shared |
+| Selective disclosure | Specific claims from a larger dataset | User controls what is revealed |
+
+---
+
+## Privacy principle for data collection
+
+- **Collect only what is needed** for the requested Score depth.
+- **Do not store** raw sensitive data beyond what is required for Score calculation.
+- **User can revoke** any data source connection at any time.
+- **Score recalculates** on remaining data if a source is revoked.
+- **All off-chain connections** require explicit user consent with a plain-language explanation.
+
+---
+
+## Next
+
+- [Understanding your Monaris Score](/score/understanding-score)
+- [System architecture](/reference/architecture)
+- [Security & privacy model](/reference/security-privacy)

@@ -1,0 +1,70 @@
+---
+title: "API overview"
+description: "Authentication, base URL, and rate limits"
+---
+
+## Purpose
+
+Monaris exposes APIs for **Score** queries, **webhooks** (invoice, Score, payment events), **privacy** (selective disclosure, compliance), and **integrations** (embed Pay or Score into third-party apps). This page covers authentication and general usage.
+
+---
+
+## Base URL
+
+[PLACEHOLDER: production base URL — e.g. https://api.monaris.co/v1]
+
+---
+
+## Authentication
+
+API requests are authenticated using **API keys** (or OAuth where applicable). Include the key in the request header:
+
+```
+Authorization: Bearer <your_api_key>
+```
+
+Or as specified in the endpoint documentation (e.g. API key in header `X-API-Key`).
+
+[PLACEHOLDER: confirm exact auth scheme and API key header name]
+
+---
+
+## API key management
+
+- API keys are generated in the Monaris dashboard (or [PLACEHOLDER: developer portal URL]).
+- **Never** expose API keys in client-side code or public repos.
+- Rotate keys if they are compromised. Revoked keys stop working immediately.
+
+---
+
+## Rate limits
+
+[PLACEHOLDER: rate limits per endpoint or per key — e.g. 100 req/min for Score API, 1000/min for webhooks]
+
+---
+
+## Endpoints
+
+| Area | Description | Doc |
+|------|-------------|-----|
+| Score API | Query score for a wallet (with consent) | [Score API reference](/api/score-api) |
+| Webhooks | Invoice, Score, payment events | [Webhook events](/api/webhooks) |
+| Privacy API | Selective disclosure proofs, compliance disclosure | [Privacy API](/api/privacy-api) |
+| Integration | Embed Monaris Pay or Score into your app | [Integration guide](/api/integration-guide) |
+
+---
+
+## Consent and compliance
+
+- **Score API:** The wallet owner must have granted permission for their Score to be queried. Consent is stored and auditable.
+- **Privacy API:** Proof generation and disclosure follow user consent and our [Security & privacy](/reference/security-privacy) model.
+- **Webhooks:** Only events for resources your app is authorized to access are sent.
+
+---
+
+## Next
+
+- [Score API reference](/api/score-api)
+- [Webhook events](/api/webhooks)
+- [Privacy API](/api/privacy-api)
+- [Integration guide](/api/integration-guide)

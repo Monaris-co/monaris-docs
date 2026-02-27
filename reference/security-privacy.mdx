@@ -1,0 +1,56 @@
+---
+title: "Security & privacy model"
+description: "Privacy defaults, what is never exposed, proofs, and compliance mode"
+---
+
+## Privacy defaults
+
+| Data type | Default | User can change to |
+|-----------|---------|---------------------|
+| Payment amounts | Private | Public |
+| Counterparty identities | Private | Public |
+| Invoice details | Private to parties | Shareable with specific parties |
+| Monaris Score | Private | Shareable (Score card or API) |
+| Cashflow summary | Private | Selective disclosure |
+| Transaction history | Private | Verifiable proof without raw data |
+
+---
+
+## What is never exposed
+
+- **Raw transaction data** to third parties without user consent.
+- **Private payment details** on the public blockchain.
+- **Off-chain data** to anyone other than the user and authorized connections.
+- **Score factors** at individual transaction level — only aggregate signals are reflected in the Score and in what you choose to share.
+
+---
+
+## zkTLS and proof architecture
+
+[PLACEHOLDER: technical team to specify exact proof system used.]
+
+Principles for documentation:
+
+- Proofs **verify claims** without revealing underlying data.
+- Proofs are generated on the user’s behalf and stored in their Monaris account.
+- **Users control** which proofs are shared with which parties.
+- Proofs can have **expiry dates** and can be **revoked**.
+
+---
+
+## Compliance mode
+
+For regulated entities (e.g. banks, institutional users) that must disclose on regulatory request:
+
+- **Compliance disclosure** does not make data public.
+- **Targeted disclosure** — share only with the named regulatory authority.
+- **Audit log** — full record of what was disclosed, to whom, and when.
+- **User is notified** of any compliance disclosure.
+
+---
+
+## Next
+
+- [Private payments](/privacy/private-payments)
+- [Secrets as a Service](/privacy/secrets-as-a-service)
+- [Data sources & verification](/reference/data-sources)
