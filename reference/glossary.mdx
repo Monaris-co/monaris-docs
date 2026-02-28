@@ -1,74 +1,176 @@
 ---
 title: "Glossary"
-description: "Terms and definitions used across Monaris"
+description: "Every term used in Monaris, explained in plain language"
+---
+
+## Monaris Credit Algorithm (MCA)
+
+The engine that powers the Monaris Score and all credit underwriting decisions. The MCA blends on-chain cashflow data (invoices, payments, wallet history) with off-chain financial data (bank accounts via Plaid, credit scores via Credit Karma, accounting data via QuickBooks/Xero, payroll via zkTLS) to produce a single 0–1000 Score. It updates in real time and becomes more powerful as you connect more data sources. See [Understanding the Monaris Score](/score/understanding-score).
+
 ---
 
 ## Monaris Score
 
-A 0–1000 reputation score built from verified cashflow history. The higher the score, the better the credit terms, the stronger the trust signals, and the more Monaris products unlock (e.g. Credit, better tiers). Every product feeds or uses the Score.
+A 0–1000 reputation score powered by the MCA. Updated in real time. The higher the Score, the better the credit terms and the more products unlock. Every Monaris product feeds the Score. See [Understanding the Monaris Score](/score/understanding-score).
 
 ---
 
 ## Mona
 
-The AI cashflow coach built into Monaris. Mona reads your cashflow data and gives specific, actionable insights — proactively, without being asked. She is not a general chatbot; she is a specialist in your cashflow, Score, and invoices.
+The AI cashflow coach built into every Monaris product. Mona reads your data and surfaces specific, actionable insights — proactively, without being asked. She is not a general chatbot. She is a specialist in your cashflow, Score, and invoices. See [Meet Mona](/mona/meet-mona).
+
+---
+
+## Monaris AR/AP
+
+Automated Receivables / Automated Payouts. The invoicing and payment management product. Create invoices, send them, track them, get paid. Every cleared invoice builds your Score. See [AR/AP guide](/invoices/ar-ap-guide).
+
+---
+
+## Monaris Private Pay
+
+The payment and settlement rail. All payments through Monaris are private by default — counterparties, amounts, and patterns are shielded from public blockchain visibility. See [Private Pay guide](/pay/private-pay-guide).
+
+---
+
+## Monaris Credit
+
+Cashflow-backed lending. Borrow against your income history, not collateral. Score-gated. Repayment is automatic from future invoice clearances. See [Monaris Credit guide](/credit/monaris-credit).
+
+---
+
+## Monaris BNPL
+
+Buy Now, Pay Later for the stablecoin economy. Three products: Pay Later (consumer), Invoice Advance (immediate liquidity from outstanding invoices), and B2B Pay Later (flexible business payment terms).
+
+---
+
+## Monaris Business
+
+The treasury operating system for teams. Multi-user controls, spend policies, payroll scheduling, vendor management, and a Team Score. See [Monaris Business guide](/business/teams).
 
 ---
 
 ## Privacy Router
 
-The Monaris settlement layer that routes all payments **privately by default**. Counterparties and amounts are not visible on the public blockchain. Proof-of-payment can be anchored on-chain in a verifiable but not readable form.
+The Monaris settlement layer that routes all payments privately by default. Counterparties and amounts are not visible on the public blockchain. A proof-of-payment is anchored on-chain — verifiable but not readable. See [Private payments](/pay/private-pay-guide).
 
 ---
 
 ## Secrets as a Service
 
-Monaris’s programmable privacy feature set. You define rules for what stays private, what can be disclosed, and to whom — at the transaction or account level. Combines privacy-by-default payments with selective disclosure proofs.
+Monaris's programmable privacy framework. You define rules for what stays private, what can be disclosed, and to whom — at the transaction or account level. Combines default privacy with selective disclosure proofs. See [Secrets as a Service](/privacy/secrets-as-a-service).
 
 ---
 
-## Selective disclosure
+## Selective Disclosure
 
-The ability to share a **cryptographic proof** of a specific claim (e.g. "I earn above $X/month" or "Score ≥ 700") without revealing the underlying data that proves it. Lets you prove things to a lender or counterparty without handing over raw history.
-
----
-
-## Cashflow underwriting
-
-Assessing credit risk based on **income reliability**, **payment patterns**, and **cashflow history** — rather than collateral or traditional credit scores. Monaris uses it to power the Score and Monaris Credit.
+The ability to share a cryptographic proof of a specific claim (e.g. "I earn above $3,000/month" or "Score ≥ 700") without revealing the underlying data. Lets you prove things to a lender or counterparty without handing over raw history.
 
 ---
 
-## Verifiable history
+## Cashflow Underwriting
 
-A cashflow record that is **provably accurate** — backed by on-chain data, cryptographic proofs, or signed attestations — and shareable without revealing raw sensitive data. The basis for the Monaris Score and credit eligibility.
+Assessing credit risk based on income reliability, payment patterns, and cashflow history — rather than collateral or traditional credit scores alone. The foundation of Monaris Credit and the MCA. See [What is cashflow-backed credit?](/concepts/cashflow-underwriting).
 
 ---
 
-## Tier C / B / A
+## Plaid
 
-The three main **reputation tiers** of the Monaris Score. **Tier C** is entry level. **Tier B** unlocks credit up to $5,000 (when Monaris Credit is live). **Tier A** unlocks credit up to $50,000. Each tier has minimum Score, invoice count, and volume. **Tier A+** is invite-only with higher limits.
+A third-party service that connects your bank account to Monaris (read-only). The MCA uses Plaid data to verify income deposits, balance history, and spending patterns from traditional banking sources. Available in V2.
+
+---
+
+## Credit Karma Integration
+
+Connect your Credit Karma account to share your traditional credit score (FICO or VantageScore) with the MCA as a supplementary signal. A good score helps; a missing score does not hurt. Available in V2.
+
+---
+
+## Invoice Advance
+
+A Monaris BNPL product. You have an outstanding invoice; Monaris advances up to 90% of the value immediately. When your client pays, everything settles automatically. See [Invoice Advance guide](/credit/invoice-advance).
+
+---
+
+## Pay Later
+
+A Monaris BNPL product. Buy now from a Monaris-integrated merchant, repay from your next cleared invoice. See [Pay Later guide](/credit/pay-later).
+
+---
+
+## B2B Pay Later
+
+A Monaris BNPL product for business purchases. Vendor gets paid immediately. Your business repays on a schedule based on your Team Score. See [B2B Pay Later guide](/credit/b2b-pay-later).
+
+---
+
+## Team Score
+
+The company-level equivalent of the individual Monaris Score. Built from the company's aggregate financial activity — vendor payments, payroll execution, client payments. Unlocks B2B credit products. See [Team Score](/business/team-score).
+
+---
+
+## Verifiable History
+
+A cashflow record that is provably accurate — backed by on-chain data, cryptographic proofs, or signed attestations — and shareable without revealing raw sensitive data. The basis for the Score and credit eligibility.
+
+---
+
+## Concentration Risk
+
+When a high percentage of your income comes from a single client or counterparty. Monaris flags this (e.g. >50% from one source) as a risk signal. Diversification improves stability and Score.
+
+---
+
+## Cashflow Timeline
+
+The Monaris feature that displays your last 90+ days of stablecoin inflows and outflows, categorized and visualized. Built from your connected wallet. Feeds the Score and Mona's insights. See [Your cashflow picture](/pay/cashflow-picture).
+
+---
+
+## Building (Tier)
+
+The entry-level Monaris Score tier (0–510). You are establishing your cashflow history. See [Score tiers](/score/tiers-explained).
+
+---
+
+## Established (Tier)
+
+The second Monaris Score tier (510–850). Requires 10+ cleared invoices and $500+ verified volume. Unlocks Score sharing and credit pre-approval. See [Score tiers](/score/tiers-explained).
+
+---
+
+## Trusted (Tier)
+
+The third Monaris Score tier (850–1000). Requires 25+ cleared invoices and $5,000+ verified volume. Unlocks full credit access and priority terms. See [Score tiers](/score/tiers-explained).
+
+---
+
+## Verified+ (Tier)
+
+Invite-only top tier. Requires 50+ cleared invoices and $25,000+ verified volume. Top 1% of users. Maximum credit limits and institutional routing. See [Score tiers](/score/tiers-explained).
 
 ---
 
 ## zkTLS
 
-A **privacy-preserving proof** technology that lets Monaris verify off-chain data (e.g. bank balances, payroll) without accessing or storing the raw data. Used for selective disclosure and compliance-friendly verification. [PLACEHOLDER: technical team to specify exact proof system used.]
-
----
-
-## Cashflow timeline
-
-The Monaris Pay feature that displays your last **90+ days** of stablecoin inflows and outflows, categorized and visualized. Built from connected wallet (and in V2, off-chain sources). Feeds the Score and Mona’s insights.
-
----
-
-## Concentration risk
-
-When a **high percentage** of your income comes from a **single client** or counterparty. Monaris flags this (e.g. >50% from one source) as a risk signal in your cashflow picture and in Score. Diversification improves stability.
+A privacy-preserving proof technology that lets Monaris verify off-chain data (bank balances, payroll) without accessing or storing the raw data. Used for selective disclosure and compliance-friendly verification.
 
 ---
 
 ## Settlement Router
 
-The Monaris infrastructure layer that **processes payments**. All payments go through the Settlement Router; the **Privacy Router** lives inside it. Handles routing, proof anchoring, and receipt generation.
+The Monaris infrastructure layer that processes payments. All payments go through the Settlement Router. The Privacy Router lives inside it. Handles routing, proof anchoring, and receipt generation.
+
+---
+
+## Compliance Mode
+
+A privacy feature for regulated entities. Enables targeted disclosure to specific regulatory authorities without making data public. Full audit log. User notification before any disclosure. See [Privacy settings reference](/reference/privacy-settings).
+
+---
+
+## Score Card
+
+A shareable image showing your Monaris Score tier, key metrics, and verification badge. Used on profiles, proposals, and applications to establish trust. See [Sharing your Score](/score/sharing-score).

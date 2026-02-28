@@ -1,73 +1,71 @@
 ---
 title: "Sharing your Score"
-description: "Score card, public profile, and verification for third parties"
+description: "Score Card, Public Profile, Selective Disclosure — share your financial identity on your terms"
 ---
 
-## Why share your Score
+Your Monaris Score is yours. You choose when to share it, what to share, and with whom. Sharing your Score lets you prove your financial reliability without handing over raw transaction data.
 
-You can share your Monaris Score to prove cashflow history and reputation without handing over raw transaction data. Use cases: freelancer proposals, rental applications, contractor vetting, loan applications.
+## Who this is for
 
----
+Freelancers who want to prove income reliability on proposals. Contractors applying for opportunities that require financial vetting. Businesses verifying the cashflow health of partners or vendors. Anyone who wants to use their on-chain history as a credential.
 
-## V1 (current)
+## How it works
 
-- Score is visible to you in the app.
-- Progress and tier are shown with a breakdown and recommendations from Mona.
-- [PLACEHOLDER: any current share/export capability — e.g. PDF or link — to be confirmed]
+Monaris offers four ways to share your Score, from a simple image to a cryptographic proof:
 
----
+### Score Card
 
-## V2 — external Score sharing
+A shareable image showing your tier, key metrics, and a verification badge. Generate one from your dashboard and use it on freelancer profiles, proposal responses, contractor applications, or anywhere you want to establish trust quickly.
 
-Planned features:
+The Score Card displays your tier and summary metrics — not your raw data. It is designed to communicate reliability at a glance.
 
-### Shareable Score card
+### Public Score Profile (Available in V2)
 
-- Generates a **verified credential** (image or link).
-- Shows score, tier, and optionally a short summary (e.g. “X months of verified cashflow”).
-- You choose when to generate and with whom to share.
+A clean public page at `monaris.co/score/[your-handle]` showing your tier and verified signals. Nothing raw, nothing private — just the information you want the world to see.
 
-### Public Score profile
+You control whether the profile is public or unlisted. You can turn it on and off at any time.
 
-- **monaris.co/score/[user-handle]** (or equivalent).
-- Optional public page that shows a sanitized Score view (e.g. score band, tier, “verified payer” badge).
-- You control whether the profile is public or unlisted.
+### Selective Disclosure Proof (Available in V2)
 
-### Selective disclosure proof
+Share a specific claim — "I earn above $X/month" or "I have a 95%+ on-time payment rate" — as a cryptographic proof without revealing the underlying data.
 
-- Share only what is needed (e.g. “Score ≥ 700” or “Tier B or above”) without revealing the exact score or full history.
-- Third parties can verify the claim cryptographically.
+A lender can verify the claim is true. A client can confirm your reliability. Neither one sees your full transaction history or exact numbers. The proof is mathematically verifiable without being information-revealing.
 
-### zkTLS attestation
+### Score API (Available in V2)
 
-- Privacy-preserving proof that a third party can verify without seeing raw data.
-- Useful for lenders or platforms that need to check “does this user meet our Score threshold?” without getting full Monaris data.
+Third-party businesses can query Monaris Scores for their contractors or vendors — **only with user permission**. The API returns score, tier, confidence level, and last updated timestamp. Nothing else.
 
----
+This is the future standard for B2B contractor vetting: a single query that answers "is this person financially reliable?" based on real cashflow data, not a credit bureau that has never heard of them.
 
-## Score API (B2B)
+<Card title="Score API documentation" icon="code" href="/api/score-api">
+  Authentication, endpoints, response schema, and consent requirements.
+</Card>
 
-Third-party businesses can query Monaris Scores for their counterparties via API, **only if the user has granted permission**. Documentation for the Score API is in the [API section](/api/score-api). It covers:
-
-- Authentication and API key management
-- Query endpoint: `GET /score/{wallet_address}` (or equivalent)
-- Response schema: score, tier, confidence level, last updated
-- Consent requirement: user must have allowed their Score to be queried
-- Pricing: per-query or monthly subscription (see [Revenue model](/reference/roadmap#revenue) or product pricing)
-
----
-
-## What is never shared without consent
+## What is never shared without your consent
 
 - Raw transaction data
-- Individual invoice or payment details (unless you explicitly share them)
-- Off-chain data (bank, accounting) used in Score calculation
-- Score factors at single-transaction level — only aggregate signals are reflected in the Score and in what you choose to share
+- Individual invoice or payment details
+- Off-chain data used in Score calculation
+- Score factors at individual transaction level — only aggregate signals are reflected
 
----
+## V1 (Available Now)
 
-## Next
+- Score visible in your dashboard with tier, progress, and Mona recommendations
+- Score breakdown showing which signals help and which need improvement
 
-- [Understanding your Monaris Score](/score/understanding-score)
-- [Score API reference](/api/score-api)
-- [Secrets as a Service](/privacy/secrets-as-a-service) — programmable privacy and selective disclosure
+## What Mona does here
+
+> *"Your Score just crossed 700. You can now generate a Score Card — useful for proposals or applications where clients want to see financial reliability."*
+
+> *"You unlocked selective disclosure. You can now prove your on-time payment rate to a third party without showing them your history."*
+
+## FAQ
+
+**Can someone see my Score without my permission?**
+No. Your Score is completely private by default. Every sharing method requires your explicit action.
+
+**Can I revoke a shared proof?**
+Yes. Selective disclosure proofs can have expiry dates and can be revoked at any time.
+
+**What do third parties see when they query the API?**
+Score value, tier, confidence level, and last updated timestamp — nothing else. And only if you have granted the third party permission to query.

@@ -1,99 +1,95 @@
 ---
-title: "Meet Mona"
-description: "The AI cashflow coach built into every Monaris product"
+title: "Meet Mona: Your AI cashflow coach"
+description: "Direct, specific, proactive — Mona knows your numbers and tells you what matters before you ask"
 ---
 
-## What Mona is
+Mona is the intelligence that runs through every Monaris product. She is not a chatbot. She is not a general assistant you type questions into. Mona is a specialist. She knows your cashflow, your Score, your invoices, your clients, and your financial patterns in real time — and she uses that context to surface insights that are specific, actionable, and timed exactly when they matter.
 
-**Mona** is the AI cashflow coach built into every Monaris product. She is not a chatbot and not a general assistant. She is a specialist: she knows your cashflow, your Score, your invoices, and your financial patterns, and uses that context to give you specific, actionable insights.
+## Who Mona is for
 
----
+Every Monaris user. Mona is built into every product — AR/AP, Private Pay, Score, Credit, and Business. You do not activate her or pay extra for her. She works in the background the moment you start using Monaris.
+
+## The philosophy behind Mona
+
+Most financial apps are passive. They show you data and wait for you to figure out what it means. Mona is active. She watches everything happening in your financial picture and tells you what it means before you have to ask.
+
+You should never feel surprised by something your money did — Mona should have told you first.
 
 ## Mona's personality
 
-- **Direct.** Never vague.
-- **Specific.** Always references real numbers from your data.
-- **Proactive.** Surfaces insights when they're relevant — she doesn't wait to be asked.
-- **Non-judgmental.** No shame about financial situations.
-- **Human.** Talks like a smart friend who knows finance, not like a compliance document.
+**Direct.** Never vague. Never says "you might want to consider possibly..." — she says "do this."
 
----
+**Specific.** Always uses your real numbers. "Your invoice from Client B is 7 days overdue" — not "you have an overdue invoice."
 
-## When Mona speaks (trigger events)
+**Proactive.** Surfaces insights at the right moment without being asked.
 
-Mona generates a message on every meaningful event. Examples by category:
+**Non-judgmental.** No shame about financial situations. Just clear information and clear next steps.
+
+**Human.** Like a smart friend who happens to understand finance deeply — not a compliance document.
+
+## What Mona notices
+
+Mona generates a message on every meaningful event. Here are real examples by category:
 
 ### Invoice events
 
-**Invoice cleared:**
-
-> "[Client name] paid on time. This is your [Nth] on-time payment from them — that's a strong reliability signal. Your Score moved from [X] to [Y]."
+**Invoice cleared (on time):**
+> *"Client A paid on time — this is their 4th on-time payment in a row. Strong counterparty. Your Score moved from 640 to 658."*
 
 **Invoice overdue (7 days):**
+> *"Your invoice to Client B is 7 days past due. Late client payments are one of the biggest Score impacts. Want me to send them a reminder?"*
 
-> "This invoice to [client] is 7 days past due. Late client payments are the #1 thing that hurts your Score. Want me to send them a reminder?"
-
-**Invoice overdue (30 days):**
-
-> "[Client] is now 30 days late. Your Score dropped [X] points this week because of this. Would you like to flag this for recovery?"
+**Off-chain connection suggestion:**
+> *"You have strong on-chain history but no off-chain data connected yet. Linking your bank account via Plaid could strengthen your income stability signal by ~60 points. Want to connect it?"*
 
 **First invoice cleared:**
-
-> "Your first invoice cleared. You've started building your Monaris Score. Clear 9 more invoices to unlock Tier B."
+> *"First invoice cleared. Your Monaris Score just started. 9 more cleared invoices will unlock Established and your first credit access."*
 
 ### Score events
 
 **Tier upgrade:**
-
-> "You just crossed into Tier [B/A]. Your cashflow history is now strong enough to [unlock X benefit]. Here's what got you here: [top 3 signals]."
-
-**Score stagnation (no change in 14 days):**
-
-> "Your Score hasn't moved in two weeks. The fastest way to improve it right now: [specific action]. That's worth approximately [X] points."
+> *"You just crossed into Established. Your cashflow history is now strong enough to qualify for up to $5,000 in credit. Here is what got you here: 12 invoices cleared, 91% on-time rate, $1,800 in verified volume."*
 
 **Score drop:**
-
-> "Your Score dropped [X] points since last week. The main reason: [signal]. Here's how to recover: [action]."
+> *"Your Score dropped 35 points since last week. Main reason: Client C's invoice is now 21 days overdue. If it clears this week, you recover most of that."*
 
 ### Cashflow events
 
 **Client concentration detected:**
+> *"Client A makes up 61% of your income this month. If they delay their next payment, your runway drops from 8 weeks to 3 weeks. Worth knowing."*
 
-> "I noticed [Client A] makes up [X]% of your income this month. That's a concentration risk — if they delay payment, your cashflow picture changes significantly. You might want to diversify."
+**Runway warning:**
+> *"Based on your current obligations and inflow patterns, you have approximately 3 weeks of runway. Your next expected payment is from Client B — due in 11 days."*
 
-**Unusual inflow:**
-
-> "You received a larger-than-usual payment this week. Based on your patterns, your runway is now [X] months. Want to set up a savings sweep for this?"
-
-**Low runway warning:**
-
-> "Based on your current obligations and inflow patterns, you have approximately [X] weeks of runway. Your next expected payment arrives in [Y] days."
-
-### Credit events (V2)
-
-**Credit pre-approval:**
-
-> "Your Score qualifies you for up to [$X] at [Y]% APR. You're not committed to anything — this is just what you'd qualify for today."
-
-**Repayment reminder:**
-
-> "Your next repayment of [$X] is due in [3] days. Your upcoming invoice from [client] should cover it — I'll handle the deduction automatically when it clears."
-
----
+<Card title="Full trigger list" icon="bell" href="/mona/what-mona-notices">
+  Every event that triggers a Mona message — invoice, Score, cashflow, credit, and BNPL.
+</Card>
 
 ## How Mona works (technical)
 
-- Mona is powered by an LLM (Claude via Anthropic API).
-- All Mona outputs are **grounded in your actual Monaris data** — no generic advice.
-- Mona never guarantees future cashflows or investment returns.
-- Mona does not give regulated financial advice — appropriate disclaimers apply in-product.
-- Mona responses are generated per event and cached for the notification feed.
-- **V2:** Users can ask Mona questions in a conversational interface.
+- Mona is powered by an LLM with access to your Monaris data and the **MCA** signals
+- All outputs are **grounded in your actual data** — no generic advice, no hallucinated numbers
+- Mona never guarantees future cashflows or investment returns
+- Mona does not give regulated financial advice — appropriate disclaimers apply in-product
+- Messages are generated per event and delivered through your notification feed
+- **Available in V2:** Conversational interface where you can ask Mona questions directly
 
----
+## V1 vs V2
 
-## Next
+**V1 (Available Now):** Five core event triggers — invoice cleared, invoice overdue, tier upgrade, Score stagnation, Score drop. One-way communication. Mona tells you things.
 
-- [Understanding your Monaris Score](/score/understanding-score)
-- [Your cashflow picture](/pay/cashflow-picture) — what Mona reads to give insights
-- [Monaris Credit](/credit/monaris-credit) — when Mona surfaces credit pre-approval (V2)
+**Available in V2:** Conversational interface. You can ask Mona questions. "Why did my score drop?" "What is my biggest cashflow risk right now?" "How long until I qualify for a $10,000 advance?" She answers with your real data.
+
+## FAQ
+
+**Can I turn Mona off?**
+You can adjust notification frequency, but Mona's core insights will always be available in your dashboard. She is designed to be useful, not noisy.
+
+**Does Mona have access to my private data?**
+Mona uses your Monaris data (invoices, payments, Score signals) to generate insights. She does not access external accounts unless you explicitly connect them (V2). Your data stays within Monaris.
+
+**Is Mona giving me financial advice?**
+No. Mona provides data-driven observations and actionable suggestions based on your cashflow patterns. She does not provide regulated financial, legal, or investment advice.
+
+**How do I know Mona's numbers are accurate?**
+Every number Mona uses comes directly from your verified Monaris data — invoices, payments, Score calculations. She never guesses or estimates without telling you it is an estimate.

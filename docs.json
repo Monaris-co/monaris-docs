@@ -1,25 +1,41 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Monaris",
+  "name": "Monaris Docs",
   "colors": {
     "primary": "#CCFF04",
     "light": "#E6FF7A",
-    "dark": "#6A8C00"
+    "dark": "#CCFF04"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo/mon.png",
   "navigation": {
     "tabs": [
       {
         "tab": "Guides",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Getting Started",
             "pages": [
               "index",
               "getting-started",
+              "quickstart",
+              "pay/cashflow-picture"
+            ]
+          },
+          {
+            "group": "Monaris AR/AP",
+            "pages": [
+              "invoices/ar-ap-guide",
               "invoices/creating-first-invoice",
               "invoices/paying-invoice"
+            ]
+          },
+          {
+            "group": "Monaris Private Pay",
+            "pages": [
+              "pay/private-pay-guide",
+              "pay/connecting-wallet",
+              "privacy/secrets-as-a-service"
             ]
           },
           {
@@ -27,31 +43,17 @@
             "pages": [
               "score/understanding-score",
               "score/tiers-explained",
-              "score/sharing-score"
+              "score/sharing-score",
+              "score/score-calculation"
             ]
           },
           {
-            "group": "Mona",
-            "pages": ["mona/meet-mona"]
-          },
-          {
-            "group": "Monaris Pay",
+            "group": "Monaris Credit",
             "pages": [
-              "pay/connecting-wallet",
-              "pay/cashflow-picture"
-            ]
-          },
-          {
-            "group": "Privacy",
-            "pages": [
-              "privacy/private-payments",
-              "privacy/secrets-as-a-service"
-            ]
-          },
-          {
-            "group": "Credit",
-            "pages": [
-              "credit/monaris-credit"
+              "credit/monaris-credit",
+              "credit/invoice-advance",
+              "credit/pay-later",
+              "credit/b2b-pay-later"
             ]
           },
           {
@@ -64,24 +66,31 @@
             ]
           },
           {
+            "group": "Mona",
+            "pages": [
+              "mona/meet-mona",
+              "mona/what-mona-notices",
+              "mona/asking-mona"
+            ]
+          },
+          {
             "group": "Concepts",
             "pages": [
               "concepts/cashflow-underwriting",
               "concepts/privacy-on-blockchain",
-              "concepts/stablecoin-credit",
-              "concepts/flywheel"
+              "concepts/invoice-history-asset",
+              "concepts/flywheel",
+              "concepts/bnpl-stablecoin-economy"
             ]
           },
           {
             "group": "Reference",
             "pages": [
-              "reference/documentation-system",
-              "reference/brief-to-pages-map",
+              "reference/score-calculation",
+              "reference/credit-tiers",
+              "reference/privacy-settings",
+              "reference/supported-wallets-chains",
               "reference/glossary",
-              "reference/architecture",
-              "reference/data-sources",
-              "reference/user-flows",
-              "reference/security-privacy",
               "reference/roadmap"
             ]
           }
@@ -91,7 +100,7 @@
         "tab": "API",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "API Documentation",
             "pages": [
               "api/overview",
               "api/score-api",
@@ -114,30 +123,42 @@
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/mon.png",
+    "dark": "/logo/mon.png"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:[PLACEHOLDER: support email]"
+        "href": "mailto:support@monaris.co"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Open app",
+      "label": "Open App",
       "href": "https://app.monaris.co"
     }
   },
   "contextual": {
-    "options": ["copy", "view", "chatgpt", "claude", "perplexity", "mcp", "cursor", "vscode"]
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
+  "customScripts": [
+    "/scripts/logo-color.js"
+  ],
   "footer": {
     "socials": {
-      "x": "https://x.com/[PLACEHOLDER: Monaris handle]",
-      "github": "https://github.com/[PLACEHOLDER: Monaris org]",
-      "linkedin": "https://linkedin.com/company/[PLACEHOLDER: Monaris]"
+      "x": "https://x.com/monaboris_co",
+      "github": "https://github.com/monaris",
+      "linkedin": "https://linkedin.com/company/monaris"
     }
   }
 }

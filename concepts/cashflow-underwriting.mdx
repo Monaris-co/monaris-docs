@@ -1,51 +1,79 @@
 ---
-title: "What is cashflow underwriting?"
-description: "The concept, why it matters, and how it differs from traditional credit"
+title: "What is cashflow-backed credit?"
+description: "The new model of lending — based on what you earn and how reliably you earn it"
 ---
 
-## Definition
+Cashflow-backed credit is the practice of lending based on **income reliability**, **payment patterns**, and **cashflow history** — rather than collateral or traditional credit scores. It is the foundation of everything Monaris Credit does.
 
-**Cashflow underwriting** is the practice of assessing credit risk based on **income reliability**, **payment patterns**, and **cashflow history** — rather than collateral or traditional credit scores (e.g. FICO).
+## The old model
 
----
+In traditional finance, credit works like this: a bureau (Equifax, Experian, TransUnion) tracks your debt repayment history. A lender checks your FICO score. If the number is high enough, you get a loan. If it is not, you do not. The whole system depends on having a bank account, a credit card, and years of debt history in a specific country.
 
-## Why it matters
+In crypto, credit has mostly been collateralized: you lock up more than you borrow (150% LTV is common). Your income and payment history are irrelevant. If you do not have idle crypto to lock up, you do not get credit.
 
-In the stablecoin economy, many users and businesses have **no traditional credit file**. Banks and legacy lenders rely on FICO, collateral, or manual underwriting. Monaris uses **on-chain and (in V2) off-chain cashflow** to build a verifiable picture: how much you earn, how often, from whom, and whether you pay on time. That picture becomes a **credit signal** — the Monaris Score — which can unlock credit without requiring crypto collateral.
+Both models fail the same people: anyone with real, provable income who does not fit the system's assumptions.
 
----
+## The new model
+
+Cashflow-backed credit flips the question from "what do you owe?" to "what do you earn?"
+
+The **Monaris Credit Algorithm (MCA)** reads your inflows and outflows — on-chain, and off-chain with consent — and builds a Score from multiple signals:
+
+### On-chain signals (V1)
+1. **Payment Consistency** — do your invoices get paid on time?
+2. **Income Stability** — is your income regular and predictable?
+3. **Client Diversity** — how many distinct clients pay you?
+4. **Obligations Coverage** — do you pay what you owe on time?
+5. **Volume History** — how much real economic activity have you processed?
+6. **Account Depth** — how long have you been building history?
+
+### Off-chain signals (Available in V2)
+7. **Bank statement consistency** — income deposits, balance trends, spending patterns (via Plaid)
+8. **Traditional credit score** — your existing FICO or VantageScore as a supplementary signal (via Credit Karma)
+9. **Accounting data** — revenue verification, P&L, client relationships (via QuickBooks/Xero)
+10. **Payroll verification** — employment income confirmed via zkTLS proof
+11. **Repayment behavior** — on-time repayment of Monaris Credit products
+
+The MCA blends all available data — on-chain and off-chain — into a single Score. Users with only on-chain data get a full Score. Users who also connect off-chain sources get a stronger, more nuanced Score that can unlock better credit terms.
+
+When your Score and history meet the bar, credit is offered. Repayment is automatic — deducted from future invoice clearances. You never need to remember to pay.
+
+## Why it works
+
+**On-chain history is tamper-proof and timestamped.** Unlike self-reported income or paper bank statements, on-chain transactions cannot be doctored. Every payment is permanently recorded.
+
+**Invoice and payment behavior are strong signals.** They show who pays you, how often, how reliably, and whether you meet your own obligations. This is more data — and more honest data — than a credit bureau has on most people.
+
+**Automated repayment from inflows reduces defaults.** When repayment is deducted automatically from incoming payments, the biggest cause of default — forgetting or not having cash ready — is eliminated.
 
 ## How it differs from traditional credit
 
-| Traditional | Cashflow underwriting (Monaris) |
-|-------------|----------------------------------|
-| FICO, bureau data | Score from verified inflows/outflows, invoice behavior, repayment history |
-| Collateral (house, car, crypto) | Income and payment behavior; repayment from future inflows |
-| Static snapshot | Dynamic: Score updates as behavior and history change |
-| Opaque factors | Explainable: which signals help or hurt your Score |
-
----
-
-## What we use (signals)
-
-- **Invoice completion rate** — % of issued invoices that get paid
-- **Payment timeliness** — % paid on or before due date
-- **Income consistency** — regularity and predictability of inflows
-- **Client diversity** — number of distinct paying counterparties
-- **Volume history** — total verified volume over time
-- **Repayment behavior (V2)** — on-time repayment of Monaris Credit
-- **Off-chain (V2)** — bank, accounting, payroll (with consent)
-
----
+| Traditional | Cashflow-backed (Monaris) |
+|-------------|--------------------------|
+| FICO score from credit bureau | Monaris Score from verified cashflow |
+| Requires bank account | Works with any wallet |
+| Based on debt repayment | Based on income reliability |
+| Static snapshot | Dynamic — updates in real time |
+| Opaque scoring factors | Explainable — you see every signal |
+| Available in ~30 countries | Available wherever stablecoins settle |
 
 ## The sequencing rule
 
-Monaris never offers credit until **verifiable history** exists: minimum 90 days of cashflow history, minimum Score threshold (e.g. 700 for Credit), minimum volume. **Score before credit. Always.**
+Monaris never offers credit until verifiable history exists. The requirements are non-negotiable:
 
----
+- Minimum 90 days of cashflow history
+- Minimum Score threshold (700+ for credit)
+- Minimum verified transaction volume ($5,000+)
 
-## Next
+**Score before credit. Always.**
 
-- [Understanding your Monaris Score](/score/understanding-score)
-- [Monaris Credit](/credit/monaris-credit)
-- [How stablecoin credit works](/concepts/stablecoin-credit)
+## FAQ
+
+**Is cashflow-backed credit riskier for the lender?**
+Not necessarily. A decade of fintech data has shown that income reliability is a stronger predictor of repayment than traditional credit scores for underbanked populations. Automated repayment further reduces default rates.
+
+**What if my income is irregular?**
+Irregular income results in a lower income stability signal, but it does not disqualify you. Monaris considers all six signals together — strong client diversity or payment consistency can offset lower stability.
+
+**Does this replace traditional credit?**
+For stablecoin earners without access to traditional credit, yes — it fills a gap that no one else fills. For users who have both, it offers an additional credit channel with different (often better) terms.

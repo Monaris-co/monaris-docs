@@ -1,78 +1,82 @@
 ---
 title: "Creating your first invoice"
-description: "Step-by-step invoice creation with Monaris AR/AP"
+description: "Step-by-step guide to creating, sending, and tracking your first Monaris invoice"
 ---
 
-## What Monaris AR/AP does
+Your first invoice is the first data point of your on-chain financial identity. Here is exactly how to create one.
 
-**Tagline:** Invoice intelligence that builds your financial reputation.
+## Who this is for
 
-Monaris AR/AP replaces manual invoicing and spreadsheet reconciliation. You create, send, and track invoices. Every invoice you clear contributes to your **Monaris Score**. The product is live at **app.monaris.co**.
-
----
+Anyone who gets paid for work — freelancers, contractors, consultants, agencies, or businesses — and wants that payment to count toward their Monaris Score.
 
 ## Before you start
 
-- You need a Monaris account (Google or email).
-- You need the recipient’s **wallet address** or **email** so they can receive and pay the invoice.
+You need two things:
+
+- A Monaris account (sign up at [app.monaris.co](https://app.monaris.co) with Google or email)
+- Your client's **wallet address** or **email address**
+
+## Step 1 — Create the invoice
+
+In your dashboard, hit **Create Invoice**. Fill in:
+
+- **Amount** — the payment amount in your chosen stablecoin (USDC or USDT)
+- **Due date** — when payment is expected
+- **Description** — what the work is (optional, but recommended for your own records)
+- **Recipient** — your client's wallet address or email. If you use email, they get a link to view and pay the invoice in their browser
+
+## Step 2 — Send the invoice
+
+Hit send. The invoice status becomes **Issued**. Your client receives it in one of two ways:
+
+- **Monaris inbox** — if they have a Monaris account, it appears directly in their inbox
+- **Email link** — they click through to view the invoice and pay, no account required
+
+## Step 3 — Track the status
+
+Every invoice moves through four stages in order:
+
+| Status | What it means |
+|--------|--------------|
+| **Issued** | Invoice sent, not yet opened |
+| **Viewed** | Client opened the invoice |
+| **Paid** | Client initiated payment |
+| **Cleared** | Payment confirmed, funds in your wallet |
+
+You can see the status of every invoice in your dashboard at any time.
+
+## Step 4 — Invoice clears, Score builds
+
+When the invoice clears, two things happen automatically:
+
+1. **You receive the funds** — settled in USDC or USDT, instantly
+2. **Your Monaris Score updates** — points are added based on the cleared invoice
+
+You did not need to take any extra action. The system handles Score calculation in real time.
+
+## What happens next
+
+After your first cleared invoice:
+
+- **Mona comments** on the event — she might note it is your first cleared invoice, or that the client paid on time
+- **Your Score starts building** — clear more invoices to move toward Established (Tier B) and eventually Trusted (Tier A)
+- **Client patterns emerge** — over time, Monaris tracks which clients pay early, on time, or late
+
+Nine more cleared invoices (plus meeting volume minimums) gets you to Established — your first real milestone.
+
+## FAQ
+
+**Can my client pay without a Monaris account?**
+Yes. They receive an email link, connect their wallet on the payment page, and pay directly. No signup required.
+
+**What if my client does not pay on time?**
+Mona sends automated, non-aggressive reminders. Overdue invoices affect the client's payment pattern in your records, not your Score.
+
+**What stablecoins can I invoice in?**
+USDC and USDT in V1.
 
 ---
 
-## Step 1: Create the invoice
-
-1. In the app, start **Create invoice** (or equivalent).
-2. Fill in:
-   - **Amount** — in your chosen stablecoin (e.g. USDC).
-   - **Due date** — when payment is due.
-   - **Description** — what the invoice is for (optional but recommended).
-   - **Recipient** — wallet address or email. If you use email, the recipient gets a link to view and pay in Monaris.
-
-[Screenshot placeholder: invoice creation form]
-
----
-
-## Step 2: Send the invoice
-
-After you save or send, the invoice is **Issued**. The recipient sees it in their Monaris inbox (if they have an account) or via the email link.
-
----
-
-## Step 3: Track status
-
-Invoice status moves in order:
-
-| Status | Meaning |
-|--------|--------|
-| **Issued** | Sent, not yet opened by recipient |
-| **Viewed** | Recipient opened the invoice |
-| **Paid** | Recipient initiated payment |
-| **Cleared** | Payment confirmed; funds received |
-
-When an invoice is **Cleared**, you get **+20 points** on your Monaris Score automatically.
-
----
-
-## After your first cleared invoice
-
-- Your Score starts to build. Clear more invoices to move toward **Tier B** (and later **Tier A**).
-- **Mona** can comment on the event (e.g. first invoice cleared, on-time payment).
-- V1 enhancements (when available): Score explanation panel, volume and minimums per tier, recurring templates (V2), early payment financing (V2).
-
----
-
-## Pricing tiers (AR/AP)
-
-| Tier | Price | Invoice volume | Key features |
-|------|-------|----------------|--------------|
-| Free | $0/mo | Basic | Invoice + inbox + Score building |
-| Solo | $19/mo | 25/mo | Recurring templates + analytics + Mona |
-| Business | $79/mo | Unlimited | Client health scores + auto-reminders + priority support |
-| Enterprise | Custom | Unlimited + API | Custom workflows + multi-user + dedicated onboarding |
-
----
-
-## Next
-
-- [Paying an invoice](/invoices/paying-invoice) — recipient experience
-- [Understanding your Monaris Score](/score/understanding-score)
-- [Score tiers explained](/score/tiers-explained)
+<Card title="Full AR/AP guide" icon="file-invoice" href="/invoices/ar-ap-guide">
+  Complete guide to Automated Receivables, Automated Payouts, pricing, and more.
+</Card>

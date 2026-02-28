@@ -1,0 +1,60 @@
+---
+title: "MCA score calculation reference"
+description: "Complete reference for every signal, weight, and threshold in the Monaris Credit Algorithm"
+---
+
+This is the definitive reference for all signals used by the **Monaris Credit Algorithm (MCA)** to calculate the Monaris Score. For a narrative overview, see [Understanding the Monaris Score](/score/understanding-score).
+
+## On-chain signal weights (V1)
+
+| Signal | Weight | Description |
+|--------|--------|-------------|
+| Payment Consistency | High | % of invoices paid on or before due date |
+| Income Stability | High | Regularity and predictability of inflows |
+| Obligations Coverage | Medium | Reliability of meeting outgoing commitments |
+| Client Diversity | Medium | Number of distinct paying counterparties |
+| Volume History | Medium | Total verified transaction volume |
+| Account Depth | Low | Time since first Monaris activity |
+| Repayment Behavior (V2) | High | On-time repayment of Monaris Credit |
+
+## Tier thresholds
+
+All three requirements must be met simultaneously.
+
+| Tier | Score | Invoices | Volume | Credit Access |
+|------|-------|----------|--------|---------------|
+| Building | 0–510 | 1+ cleared | $0 | None |
+| Established | 510–850 | 10+ cleared | $500+ | Up to $5,000 |
+| Trusted | 850–1000 | 25+ cleared | $5,000+ | Up to $50,000 |
+| Verified+ | Invite only | 50+ cleared | $25,000+ | Up to $250,000 |
+
+## V1 signals (on-chain only)
+
+All V1 signals are derived from on-chain data:
+
+- Invoice creation, sending, and clearance history
+- Payment timestamps and amounts
+- Counterparty addresses and patterns
+- Wallet transaction history (last 90+ days)
+
+## Off-chain signal weights (Available in V2)
+
+| Signal | Weight | Source | Description |
+|--------|--------|--------|-------------|
+| Bank Statement Consistency | Medium-High | Plaid | Income deposits, balance trends, spending patterns |
+| Traditional Credit Score | Medium | Credit Karma | FICO/VantageScore as supplementary signal |
+| Accounting Data | Medium | QuickBooks / Xero | Revenue verification, P&L, client relationships |
+| Payroll/CEX Verification | Medium | zkTLS | Employment income or exchange history via privacy-preserving proof |
+| Repayment Behavior | High | Monaris internal | On-time repayment of Monaris Credit products |
+| Behavioral Patterns | Low | Monaris internal | Churn, disputes, defaults |
+
+## Anti-gaming protections
+
+- Volume minimums prevent tier progression from fake low-value invoices
+- Invoice count minimums require a meaningful number of real transactions
+- Pattern detection identifies circular or artificial transaction flows
+- Account Depth rewards sustained presence — time cannot be faked
+
+## MCA update frequency
+
+Real-time. Every cleared invoice, every payment, every relevant event triggers an immediate Score recalculation. There is no batch processing delay. Off-chain data sources refresh periodically based on provider update frequency (e.g. Plaid syncs daily).

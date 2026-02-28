@@ -1,58 +1,77 @@
 ---
-title: "Privacy on blockchain"
-description: "Why public chains expose too much and how Monaris addresses it"
+title: "How private payments work on blockchain"
+description: "Why public chains expose too much, and how Monaris makes payments private by default"
 ---
+
+On most blockchains, every transaction is public. That is a feature for transparency — but a serious problem for anyone who wants their financial life to remain their own business. Monaris fixes this without sacrificing the benefits of blockchain settlement.
 
 ## The problem: public by default
 
-On most blockchains, **every transaction is public**. Anyone can see:
+When you send USDC on a public blockchain, anyone can see:
 
-- **Who sent** and **who received** (addresses)
-- **Amount** and **asset type**
-- **When** and **how often**
+- **Who sent it** (your wallet address)
+- **Who received it** (the recipient's wallet address)
+- **How much** (the exact amount)
+- **When** (the exact timestamp)
+- **How often** (your entire payment history pattern)
 
-For individuals and businesses, that means:
+For individuals, this means your income and spending patterns are exposed. For businesses, it means competitors can map your supplier relationships, track your vendor payments, and infer your financial health.
 
-- Income and spending patterns are visible to competitors, scrapers, and strangers.
-- Business relationships (who pays whom) are exposed.
-- Financial behavior can be inferred and used without your consent.
+Real-world identities can be linked to addresses through KYC, exchange records, or pattern analysis. "Public money" quickly becomes a public financial life.
 
----
+## Why this matters for stablecoins specifically
 
-## Why that matters for stablecoins
+Stablecoins are not just used for trading anymore. They are used for **payroll**, **invoicing**, **B2B payments**, and **cross-border remittances**. These are real financial activities with real privacy implications.
 
-Stablecoins are used for **payroll**, **invoicing**, **B2B payments**, and **remittances**. Real-world identities can be linked to addresses (e.g. via KYC, exchanges, or patterns). So "public money" can mean **public financial life** — which many users do not want.
-
----
+A company paying a developer $5,000/month in USDC does not want that relationship, amount, and timing visible to every competitor with an internet connection. A freelancer receiving income from multiple clients does not want their total earnings broadcast to the world.
 
 ## How Monaris addresses it
 
-### Privacy Router
+### The Privacy Router
 
-All payments sent **through Monaris Pay** go through the **Privacy Router** by default. Counterparties and amounts are **not** visible on the public chain in a readable form. A **proof-of-payment** is anchored so the payment is verifiable without exposing details to the world.
+All payments sent through Monaris go through the **Privacy Router** by default. No configuration needed. No premium tier required for basic privacy.
+
+```
+YOU INITIATE A PAYMENT
+        ↓
+PRIVACY ROUTER (automatic)
+  ├─ Routes through privacy-preserving settlement path
+  ├─ Strips counterparty metadata from public visibility
+  ├─ Generates private receipt (sender + recipient only)
+  ├─ Anchors proof-of-payment on-chain (verifiable, not readable)
+  └─ Updates Monaris Score with verified signal
+        ↓
+RECIPIENT RECEIVES PAYMENT
+(details visible only to sender + recipient)
+```
 
 ### Secrets as a Service
 
-You set **programmable privacy rules**: which payments are private, which can be disclosed, and to whom. You can keep a payment private and still generate **selective disclosure proofs** (e.g. "I paid at least $X" or "I have on-time payment history") for a lender or auditor.
+Beyond default privacy, Monaris offers programmable privacy rules. You define what stays private and what can be disclosed — per transaction, per counterparty, per amount threshold. See [Secrets as a Service](/privacy/secrets-as-a-service) for the full guide.
 
-### Principle
+### The core principle
 
-**Privacy and verifiability are not opposites.** Monaris gives you both: control over what is secret and the ability to prove what is needed.
+**Privacy and verifiability are not opposites.** A payment can be completely private on-chain while still generating proofs — that it happened, that it was on time, that the amount was within a range. You control what is secret and what is provable, independently.
 
----
+## What stays private by default
 
-## What stays private (by default)
+- Payment amounts (not visible on public chain)
+- Counterparty identities (not visible on public chain)
+- Payment timing and frequency (not visible as readable data)
 
-- Payment amounts (on public chain)
-- Counterparty identities (on public chain)
-- Payment timing and frequency (as readable data)
+## What you can optionally do
 
-What you **can** do: share a proof with a specific party, use compliance mode for regulators, or opt in to transparency for specific transactions.
+- **Share a proof** with a specific party (lender, tax authority, auditor)
+- **Enable compliance mode** for regulatory disclosure without going public
+- **Opt into transparency** for specific transactions if you want them on the public record
 
----
+## FAQ
 
-## Next
+**Is Monaris using a mixer?**
+Monaris uses privacy-preserving settlement technology to shield transaction details from public visibility. The specific implementation protects counterparty and amount data while maintaining verifiability through cryptographic proofs.
 
-- [Private payments — how it works](/privacy/private-payments)
-- [Secrets as a Service](/privacy/secrets-as-a-service)
-- [Security & privacy model](/reference/security-privacy)
+**Is privacy legal?**
+Privacy of financial information is a fundamental right in most jurisdictions. Monaris does not enable illicit activity — compliance mode allows targeted disclosure to regulators when required. Users remain responsible for their own tax and regulatory obligations.
+
+**Does privacy affect transaction speed?**
+No. Payments through the Privacy Router settle at the same speed as standard stablecoin transactions.

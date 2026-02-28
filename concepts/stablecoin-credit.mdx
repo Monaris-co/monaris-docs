@@ -1,43 +1,49 @@
 ---
 title: "How stablecoin credit works"
-description: "The new model of income-backed lending"
+description: "The model of income-backed lending on stablecoin rails — no collateral, no credit bureau, automatic repayment"
 ---
+
+Stablecoin credit in the Monaris model is underwritten by cashflow, not collateral. You borrow based on what you earn. You repay from what you receive. The entire cycle runs on stablecoin rails.
 
 ## The old model: collateral-only
 
-In crypto, credit has mostly been **collateralized**: you lock more than you borrow (e.g. 150% LTV). Your **income** and **payment history** are irrelevant. That excludes anyone who has cashflow but not idle collateral.
+In crypto, credit has mostly been collateralized. You lock up more than you borrow — often 150% of the loan value. Your income and payment history are irrelevant. If you have $10,000 in ETH, you can borrow $6,500 against it. If you do not have idle crypto, you do not get credit.
 
----
+This excludes anyone who has cashflow but not capital. Which is most working people.
 
 ## The new model: cashflow-backed
 
-**Stablecoin credit** in the Monaris model is **underwritten by cashflow**, not (only) collateral:
+Monaris Credit works differently:
 
-1. **Verifiable history** — Monaris reads your inflows/outflows (on-chain, and in V2 off-chain with consent) and builds a Score.
-2. **Eligibility** — Credit is offered only when Score, history length, and volume meet minimums (e.g. Score 700+, 90 days, $5K volume).
-3. **Repayment from future inflows** — When you get paid (e.g. invoice cleared), Monaris deducts the scheduled repayment first; you receive the rest. No need to remember to pay manually.
-4. **Score improves or declines** — On-time repayment raises your Score and can increase your limit; late or default lowers it and can freeze new credit.
+1. **Build verifiable history** — Monaris reads your inflows and outflows and builds a Score from six signals
+2. **Meet eligibility** — Score 700+, 90 days of history, $5,000+ verified volume
+3. **Receive credit in USDC** — disbursed directly to your wallet
+4. **Repay from future inflows** — when an invoice clears, Monaris deducts the installment first, then releases the rest to you
 
----
+No collateral lockup. No credit bureau. No bank account. No manual repayment.
 
 ## Why it works
 
-- On-chain history is **tamper-proof** and **timestamped**. We don’t rely on self-reported income alone.
-- **Invoice and payment behavior** are strong signals: they show who pays you and whether you pay on time.
-- **Automated repayment** from inflows reduces forgetfulness and aligns repayment with actual cashflow.
+**On-chain history is tamper-proof.** Every payment is timestamped, permanent, and verifiable. Self-reported income on a loan application can be fabricated. On-chain payment history cannot.
 
----
+**Automated repayment reduces defaults.** The biggest reason people default is forgetting or not having cash ready on the due date. When repayment is deducted automatically from incoming payments, that failure mode is eliminated.
+
+**Invoice behavior predicts repayment.** A person who has cleared 25 invoices on time over 6 months has demonstrated consistent income and financial reliability. That is a strong credit signal — stronger than a FICO score for someone without traditional credit history.
 
 ## Limits and risks
 
-- Credit is **not** available to everyone. It is gated by Score and history.
-- Defaults are possible. We have a **default management** process (grace → late → at risk → default; see [Monaris Credit](/credit/monaris-credit)).
-- This documentation does not constitute financial or legal advice. Monaris is not a licensed lender in all jurisdictions.
+Credit is not available to everyone. It is gated by Score and history. The requirements are strict because they need to be:
 
----
+- **Score 700+** — proven payment consistency and income stability
+- **90 days minimum history** — no credit for brand-new accounts
+- **$5,000+ verified volume** — real economic activity, not artificial transactions
+
+Defaults are possible. Monaris has a four-stage management process: grace (0–30 days) → late (31–60 days) → at risk (61–90 days) → default (90+ days). See [Monaris Credit](/credit/monaris-credit) for full details.
+
+*This documentation does not constitute financial or legal advice. Monaris Credit products involve risk. Product availability and eligibility vary by jurisdiction.*
 
 ## Next
 
-- [Monaris Credit](/credit/monaris-credit)
-- [What is cashflow underwriting?](/concepts/cashflow-underwriting)
-- [Understanding your Monaris Score](/score/understanding-score)
+- [Monaris Credit: Complete Guide](/credit/monaris-credit)
+- [What is cashflow-backed credit?](/concepts/cashflow-underwriting)
+- [Understanding the Monaris Score](/score/understanding-score)

@@ -1,0 +1,75 @@
+---
+title: "Privacy settings reference"
+description: "Complete reference for privacy defaults, controls, and disclosure options across all Monaris products"
+---
+
+This page is a comprehensive reference for every privacy setting and control available in Monaris.
+
+## Privacy defaults
+
+| Data type | Default | User can change to |
+|-----------|---------|-------------------|
+| Payment amounts | Private | Public (opt-in) |
+| Counterparty identities | Private | Public (opt-in) |
+| Invoice details | Private to parties | Shareable with specific parties |
+| Monaris Score | Private | Shareable (Score Card, Profile, or API) |
+| Cashflow summary | Private | Selective disclosure |
+| Transaction history | Private | Verifiable proof without raw data |
+
+## Privacy features by plan
+
+| Feature | Free | Pay User | Business |
+|---------|------|----------|----------|
+| Private payments by default | ✓ | ✓ | ✓ |
+| Custom privacy per transaction | — | ✓ | ✓ |
+| Private invoicing (hidden amount) | — | ✓ | ✓ |
+| Selective disclosure proof | — | ✓ | ✓ |
+| Privacy audit log | — | ✓ | ✓ |
+| Team-level privacy policy | — | — | ✓ |
+| Programmable privacy rules | — | — | ✓ |
+| Compliance disclosure mode | — | ✓ | ✓ |
+
+## Programmable privacy rules (Business plan)
+
+Rules you can define that execute automatically:
+
+- **Amount threshold:** "All payments above $5,000 are always private"
+- **Counterparty-based:** "All payments to Vendor A are private"
+- **Category-based:** "Payroll payments are private — but generate a verifiable receipt"
+- **Time-based:** "Payments between 9pm–6am are private"
+- **Default override:** "Public by default, except when paying category = personal"
+- **Score carve-out:** "All payments private — but Score data is shareable"
+
+## Selective disclosure options
+
+| What you can prove | Without revealing |
+|-------------------|------------------|
+| Payment happened | Amount or counterparty |
+| Amount within a range | Exact amount |
+| On-time payment | Full transaction details |
+| Income above a threshold | Exact income |
+| Score above a threshold | Exact Score |
+
+## Compliance mode
+
+Available to Pay User and Business plans:
+
+- Targeted disclosure to a named regulatory authority
+- Does not make data public
+- Full audit log of every disclosure
+- User notified before any disclosure
+- Privacy preserved for all other purposes
+
+## What is never exposed
+
+- Raw transaction data to third parties without user consent
+- Private payment details on the public blockchain
+- Off-chain data to anyone other than user and authorized connections
+- Score factors at individual transaction level
+
+## Proofs
+
+- Cryptographic proofs verify claims without revealing underlying data
+- Proofs are generated on user behalf and stored in their account
+- Users control which proofs are shared with which parties
+- Proofs can have expiry dates and can be revoked

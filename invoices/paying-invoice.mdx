@@ -1,69 +1,64 @@
 ---
 title: "Paying an invoice"
-description: "Recipient experience: view and pay a Monaris invoice end-to-end"
+description: "The recipient experience — how to view and pay a Monaris invoice"
 ---
 
-## How paying an invoice works
+When someone sends you a Monaris invoice, you can view it and pay in under a minute. Payment is private by default — only you and the sender see the details.
 
-When someone sends you a Monaris invoice, you can view it and pay in a few steps. Payment goes through the **Privacy Router** by default — only you and the sender see the amount on the receipt.
+## Who this is for
 
----
+Anyone who receives an invoice from a Monaris user — whether you have a Monaris account or not.
 
-## Step 1: Receive the invoice
+## How it works
 
-You get the invoice by:
+### Step 1 — Receive the invoice
 
-- **Monaris inbox** — if you have a Monaris account, it appears in your inbox.
-- **Email** — you receive a link to open the invoice in the browser.
+You get the invoice one of two ways:
 
----
+- **Monaris inbox** — if you have a Monaris account, the invoice appears in your inbox automatically
+- **Email** — you receive a link to view the invoice in your browser
 
-## Step 2: Open the invoice
+### Step 2 — Review the details
 
-Open the link or the invoice in your inbox. You see:
+Open the invoice. You see:
 
-- Amount (in stablecoin, e.g. USDC)
-- Sender
+- Amount (in USDC, USDT, or other supported stablecoin)
+- Who sent it
 - Due date
-- Description (if provided)
+- Description of work (if the sender included one)
 
----
+### Step 3 — Pay
 
-## Step 3: Pay the invoice
+1. Click **Pay Invoice**
+2. Connect your wallet (MetaMask, WalletConnect, or another supported EVM wallet)
+3. Confirm the transaction in your wallet
 
-1. Click **Pay invoice** (or equivalent).
-2. **Connect your wallet** or choose a saved wallet (MetaMask, WalletConnect, or other supported EVM wallet).
-3. Confirm the transaction in your wallet.
+That is it. Payment settles instantly.
 
----
+### Step 4 — What happens after you pay
 
-## Step 4: What happens when you pay
-
-1. Payment is sent through the **Privacy Router** (private by default).
-2. The sender receives the funds.
-3. Invoice status becomes **Cleared**.
-4. You and the sender each get a **private payment receipt** (visible only to you two).
-5. The sender’s **Monaris Score** increases by **+20 points**.
-6. **Mona** can send the sender a short message about the payment (e.g. on-time, first payment from you).
-
----
+1. Payment routes through the **Privacy Router** — private by default
+2. The sender receives their funds immediately
+3. Invoice status becomes **Cleared**
+4. You and the sender each get a **private receipt** (visible only to the two of you)
+5. The sender's **Monaris Score** increases automatically
+6. **Mona** may send the sender an insight about the payment (on-time streak, first payment from you, etc.)
 
 ## Privacy
 
-- By default, the payment is **private**. Counterparties and amounts are not exposed on the public chain in a readable way.
-- A **proof-of-payment** is anchored on-chain so the payment is verifiable without revealing details to the public.
-- You and the sender can both see the receipt in your Monaris accounts.
+By default, this payment is private. The counterparty identities and amount are not exposed on the public blockchain in readable form. Only a proof-of-payment is anchored on-chain — verifiable if needed, but not readable by anyone browsing the chain.
 
----
+## Without a Monaris account
 
-## If you don’t have a Monaris account
+You do not need a Monaris account to pay. Click the email link, connect your wallet, and pay. You can create an account afterward to see your payment history, receipts, and start building your own Score.
 
-You can still pay via the link sent by email. You will connect your wallet on the payment page and complete the transaction. You can create a Monaris account later to see your payment history and receipts.
+## FAQ
 
----
+**Is the payment instant?**
+Yes. Stablecoin settlement is near-instant. The sender receives funds within seconds.
 
-## Next
+**Can I pay with any wallet?**
+Any EVM-compatible wallet that supports WalletConnect or MetaMask works in V1.
 
-- [Understanding your Monaris Score](/score/understanding-score) (for senders)
-- [Private payments — how it works](/privacy/private-payments)
-- [Connecting your wallet](/pay/connecting-wallet)
+**Will my payment be visible on the blockchain?**
+The payment details (amount, sender, recipient) are private by default. A cryptographic proof-of-payment exists on-chain for verification, but it is not readable by the public.

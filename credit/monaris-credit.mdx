@@ -1,10 +1,130 @@
 ---
-title: "Monaris Credit"
-description: "Coming soon: eligibility and pre-approval preview"
+title: "Monaris Credit: Complete Guide"
+description: "Borrow against your cashflow history — not collateral. Score-backed credit with automatic repayment from future invoices."
 ---
 
-## Status
+Monaris Credit is cashflow-backed lending. Borrow against your income history, not your crypto holdings, not a co-signer, not collateral you do not have. The **Monaris Credit Algorithm (MCA)** is the underwriting engine. It blends your on-chain cashflow history with any connected off-chain data (bank accounts, credit scores, accounting tools) to determine your eligibility and terms. Repayment is automatic, deducted from future invoice clearances. No chasing payments. No missed repayment anxiety. The system handles it.
 
-Monaris Credit is **coming soon**. In the current phase, Monaris shows **pre-approval signals only**. No credit is disbursed yet.
+## Who it is for
 
----
+Freelancers and contractors who need working capital between invoices. Remote workers with a strong payment history who need a loan but have no traditional credit score. Small businesses that need short-term liquidity without giving up equity or paying predatory rates. Anyone whose cashflow proves they can repay before a single dollar is disbursed.
+
+## The fundamental difference
+
+Every other credit product looks at what you **owe**. Monaris Credit looks at what you **earn** and how reliably you earn it. If your cashflow history — on-chain invoices, wallet activity, and connected bank data — shows $5,000/month in consistent, diversified income from reliable clients, you are creditworthy. The data is verified. The proof is already there. The MCA acts on it.
+
+## Credit tiers by Score
+
+| Score Tier | Score | Max Credit | APR Range | Origination Fee |
+|-----------|-------|-----------|-----------|-----------------|
+| Not eligible | 0–510 | — | — | — |
+| Established | 510–850 | Up to $5,000 | 10–14% | 2% |
+| Trusted | 850–1000 | Up to $50,000 | 6–10% | 1.5% |
+| Verified+ | Invite only | Up to $250,000 | 5–8% | 1% |
+
+## How Monaris Credit works
+
+```
+You reach Score 700+ with 90 days of history and $5,000+ volume
+        ↓
+Mona surfaces your pre-approval: "You qualify for up to $X at Y% APR"
+        ↓
+You review the terms — amount, APR, repayment schedule
+        ↓
+You confirm: "Yes, I want this credit"
+        ↓
+MCA underwrites instantly (Score model + live cashflow + off-chain data review)
+        ↓
+USDC disbursed to your wallet immediately
+        ↓
+Repayment schedule tied to your future invoice clearances
+        ↓
+Client pays your next invoice → Monaris deducts installment first
+        ↓
+Remaining balance released to your wallet
+        ↓
+On-time repayment → Score improves → Credit limit can increase
+```
+
+## The repayment model
+
+This is the most important thing to understand about Monaris Credit.
+
+You never "remember to repay." Repayment is deducted automatically when your next invoice clears. If your invoice comes in for $2,000 and your installment is $400, you receive $1,600. The $400 is handled.
+
+This eliminates the single biggest reason people default — forgetting or not having the cash ready when the payment is due.
+
+> *Mona: "Invoice cleared $2,000. Credit installment $400 deducted. $1,600 sent to your wallet."*
+
+## What happens if there are repayment issues
+
+| Stage | Days Late | What Happens |
+|-------|----------|--------------|
+| **Grace** | 1–30 | Mona sends reminders only. No penalty. Score unaffected. |
+| **Late** | 31–60 | 2.5% late fee. Score begins to decline. Restructuring offered. |
+| **At Risk** | 61–90 | Account flagged. New credit frozen. Recovery plan created with Mona. |
+| **Default** | 90+ | Account reviewed. Score reflects the history permanently. |
+
+The grace period exists because life happens. But the system is designed so that most repayments are automatic — and most users never reach the Late stage.
+
+## Eligibility requirements
+
+Credit is never surfaced to users before they have sufficient Score history. This is a core UX principle, enforced at the system level.
+
+**Minimum requirements:**
+- Monaris Score 700+
+- 90 days of verified cashflow history
+- $5,000+ in verified transaction volume
+- Active invoice activity (not dormant accounts)
+
+No credit offers, no pre-approval views, no APR ranges are shown to users who do not meet these thresholds.
+
+## Strengthening your credit with off-chain data (Available in V2)
+
+The MCA considers all connected data sources when determining credit terms. Users who connect off-chain accounts alongside their wallet may see:
+
+- **Higher credit limits**: bank deposits confirming income alongside on-chain data gives the MCA more confidence
+- **Lower APR**: a strong traditional credit score (via Credit Karma) is a positive signal
+- **Faster approval**: accounting data (QuickBooks/Xero) that confirms invoice patterns accelerates underwriting
+
+Off-chain connections are optional. Users with strong on-chain history alone still qualify for credit. But connecting additional sources gives the MCA more data to work with — and more data generally means better terms.
+
+## What makes Monaris Credit different
+
+- **No collateral required**: no crypto lockup, no property, nothing
+- **No credit bureau check**: your on-chain history IS the check
+- **No bank account required**
+- **No manual repayment**: automated from invoice clearances
+- **Available globally** wherever stablecoin settlement works
+- **Score-based**: the better your history, the better your terms
+
+## What Mona does here
+
+> *"Your Score now qualifies you for up to $8,000 at 11% APR. You are not committing to anything — this is just what is available to you today based on your history."*
+
+> *"Your next repayment of $600 is due in 3 days. Your invoice from Client B should clear before then — I will handle the deduction automatically when it does."*
+
+## Availability
+
+<Note>
+Monaris Credit full product launch is **available in V3** (invite-only first). Credit pre-approval display is **available in V2** as a waitlist signup. Invoice Advance is available in V2 for qualifying users.
+</Note>
+
+*Monaris Credit and BNPL products are subject to eligibility requirements including minimum Monaris Score, verified cashflow history, and transaction volume thresholds. Credit products involve risk. This documentation is informational only and does not constitute financial or legal advice. Product availability varies by jurisdiction.*
+
+## FAQ
+
+**What if I do not have enough invoices clearing to cover repayment?**
+Monaris reviews your cashflow patterns before approving credit. If your projected inflows are insufficient, the credit amount offered will be lower. Mona also monitors your upcoming cashflow and warns you if a gap is approaching.
+
+**Can I repay early?**
+Yes. Early repayment has no penalty and improves your Score.
+
+**What stablecoin is the credit disbursed in?**
+USDC. Additional stablecoins may be supported in future versions.
+
+**Does taking credit affect my Score?**
+Taking credit itself does not lower your Score. On-time repayment improves it. Late repayment lowers it. The net effect depends entirely on your repayment behavior.
+
+**How is this different from DeFi lending?**
+DeFi lending requires you to lock up more collateral than you borrow (over-collateralization). Monaris Credit requires no collateral — it is underwritten by your cashflow history. You borrow based on what you earn, not what you already have.

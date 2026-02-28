@@ -1,0 +1,118 @@
+---
+title: "Documentation system"
+description: "Reusable docs structure and writing flow you can adapt to your own product"
+---
+
+## Purpose
+
+Use this page as the blueprint for building docs with the same flow used in this project: narrative first, guided onboarding second, product tracks third, deep reference and API last.
+
+---
+
+## Recommended information architecture
+
+### Tab 1: Guides
+
+1. `index` (product narrative)
+2. `getting-started` (first 5 minutes)
+3. Product groups (feature-by-feature workflows)
+4. Concepts (mental models and strategy)
+5. Reference (definitions, architecture, user flows, roadmap)
+
+### Tab 2: API
+
+1. `api/overview`
+2. Endpoint family pages (`score`, `webhooks`, `privacy`, etc.)
+3. `api/integration-guide`
+
+Keep each page focused on one user intent.
+
+---
+
+## Page templates
+
+## 1) Landing page (`index.mdx`)
+
+- One-line definition
+- Two-line expanded definition
+- "What this is not"
+- Core insight
+- Problem/solution layer table
+- Product cards
+- Next-step cards
+
+## 2) Getting started page (`getting-started.mdx`)
+
+- Sign-up steps
+- Two clear onboarding paths
+- "What you see on the dashboard"
+- Operating principles
+- Next-step links
+
+## 3) Workflow page (product pages)
+
+- Overview
+- Step-by-step flow
+- Expected outcomes
+- Troubleshooting/limits
+- Next links
+
+## 4) Reference page
+
+- Definitions, architecture diagrams, flow maps, or policy detail
+- Stable terms and explicit assumptions
+- Links to related API or guide pages
+
+## 5) API page
+
+- Purpose
+- Auth
+- Base URL
+- Rate limits
+- Endpoint table
+- Consent/compliance constraints
+- Next links
+
+---
+
+## Writing standards 
+
+- Write to one reader ("you").
+- Keep sentence length short.
+- Use action-first instructions.
+- Bold UI labels.
+- Use `code` style for commands, paths, ids, and payload fields.
+- Mark unknown details with `[PLACEHOLDER: ...]` until confirmed.
+
+---
+
+## Reusable component pattern
+
+- Use `<Card>` for action-oriented navigation.
+- Use `<Columns>` for grouped entry points.
+- Use markdown tables for tiering, comparison, and feature matrices.
+- Use short numbered steps for workflows.
+
+Avoid dense walls of text. Prefer scannable blocks with clear outcomes.
+
+---
+
+## Content production workflow
+
+1. Define navigation groups in `docs.json`.
+2. Draft `index.mdx` and `getting-started.mdx`.
+3. Draft workflow pages for each product area.
+4. Add reference pages for glossary, architecture, and user flows.
+5. Add API overview and endpoint pages.
+6. Run `mint broken-links`.
+7. Review for placeholders and terminology consistency.
+
+---
+
+## Adaptation checklist for your project
+
+- Replace product names and terms globally.
+- Define your score/risk/tier model (if applicable).
+- Replace placeholder chain, API, legal, and policy values.
+- Confirm all external URLs in navbar/footer.
+- Align feature maturity labels (`live`, `beta`, `planned`) across pages.

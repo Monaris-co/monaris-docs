@@ -1,0 +1,9 @@
+/* Monaris Docs: site name (logo text) in header/sidebar */
+nav a[href="/"],
+aside a[href="/"],
+header a[href="/"],
+[class*="sidebar"] a[href="/"],
+[class*="Sidebar"] a[href="/"],
+[class*="topbar"] a[href="/"] {
+  color: #CCFF04 !important;
+}

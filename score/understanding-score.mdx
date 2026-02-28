@@ -1,100 +1,133 @@
 ---
-title: "Understanding Monaris Score"
-description: "How the Score works, what it means, and how to improve it"
+title: "Understanding the Monaris Score"
+description: "A 0–1000 reputation score powered by the Monaris Credit Algorithm (MCA) — blending on-chain cashflow with off-chain financial data"
 ---
 
-## What the Monaris Score is
+The Monaris Score is a 0–1000 reputation score powered by the **Monaris Credit Algorithm (MCA)**. It is the central product of the entire Monaris platform. Every product feeds it. Everything valuable in Monaris is unlocked by it. It is the equivalent of a credit score — but real-time, global, privacy-preserving, and built on data that actually reflects your financial reality.
 
-The **Monaris Score** is a **0–1000** reputation score built from verified cashflow history. It is the central product of the platform: every other product either feeds the Score or is unlocked by it.
+The MCA is unique because it combines **on-chain** stablecoin cashflow with **off-chain** financial data: bank accounts via Plaid, credit scores via Credit Karma, accounting data via QuickBooks or Xero, and payroll verification via zkTLS. Users with only on-chain data get a Score. Users who also connect off-chain sources get a stronger, faster-building Score. No other system combines both worlds.
 
-**Tagline:** Your cashflow history, turned into a verifiable financial identity.
+## Who it is for
 
----
+Anyone who earns in stablecoins and wants financial identity that proves their reliability. Freelancers who want to prove their income to clients, landlords, or lenders. Businesses that want to verify the cashflow health of contractors or partners. Anyone who wants credit access without a traditional credit score.
 
-## Current implementation (live)
+## The most important thing to understand
 
-- **Range:** 0–1000
-- **Tiers:** Tier C (0–510), Tier B (510–850), Tier A (850–1000)
-- **Trigger:** +20 points per cleared invoice (automatic)
-- **Display:** Score with progress bar toward the next tier
-- **Unlock ladder:** Tier C → Tier B → Tier A. Credit terms are shown as **Coming soon** until Monaris Credit launches (see [Score tiers explained](/score/tiers-explained)).
+Traditional credit scores look backward at debt repayment. The Monaris Score looks at **income reality**. How reliably do you earn? How consistent are your clients? How diversified is your income? How well do you cover your obligations? Do you have the cashflow to repay a loan before you even take one?
 
----
+These are better questions. And for 400 million stablecoin earners, they are the only questions that matter — because no credit bureau has their data.
 
-## Tier labels in plain language
+## How the MCA builds your Score
 
-| Score range | Label | Meaning |
-|-------------|-------|---------|
-| 0–510 | Building | Establishing your cashflow history |
-| 510–850 | Established | Consistent, verifiable payment patterns |
-| 850–1000 | Trusted | Institutional-grade cashflow history |
+The MCA weighs six core on-chain signals, each updated in real time. In V2, additional off-chain signals are blended in to create a richer financial picture:
 
----
+### 1. Payment Consistency
+What percentage of your invoices get paid on time? Invoices cleared on or before due date improve this signal significantly. This is the strongest signal in the Score.
 
-## Score composition (V1 — on-chain only)
+### 2. Income Stability
+How regular and predictable are your inflows? A freelancer earning $3,000 every month consistently scores better than someone earning $36,000 once a year. Regularity matters more than size.
 
-| Signal | Weight | Description |
-|--------|--------|-------------|
-| Invoice completion rate | High | % of issued invoices that get paid |
-| Payment timeliness | High | % of invoices paid on or before due date |
-| Income consistency | Medium | Regularity and predictability of inflows |
-| Client diversity | Medium | Number of distinct paying counterparties |
-| Volume history | Medium | Total verified volume over time |
-| Account age | Low | Time since first Monaris activity |
-| Repayment behavior | High (V2) | On-time repayment of Monaris Credit |
+### 3. Client Diversity
+How many distinct paying clients do you have? Single-client dependency is a risk signal. Multiple reliable clients is a strength signal. If one client disappears, can your income survive?
 
----
+### 4. Obligations Coverage
+Do you reliably cover what you owe? Paying vendors and obligations on time improves this signal. It measures the outflow side of your financial reliability.
 
-## Score composition (V2 — on-chain + off-chain)
+### 5. Volume History
+What is your verified total transaction volume over time? Volume thresholds matter because they prevent gaming. You cannot reach a higher tier by creating fake invoices for $1 each.
 
-All V1 signals, plus:
+### 6. Account Depth
+How long have you been building verifiable history? Older, deeper history carries more weight. Time is a signal that cannot be faked.
 
-- Bank statement consistency (via Plaid or export)
-- QuickBooks / accounting reconciliation
-- Payroll receipt verification
-- CEX balance history (via zkTLS proof)
-- Behavioral patterns: churn, disputes, defaults
+## What you see in the app
 
----
+Every Score display shows exactly why you have the score you have:
 
-## Tier thresholds — Score and volume
+```
+Your Monaris Score: 680 — Established
 
-Tiers require **both** a minimum Score **and** minimum volume. You cannot reach Tier B on points alone from a tiny volume. Volume minimums are enforced in the system.
+Built from:
+✓ Payment consistency      +220 pts  (94% on-time rate)
+✓ Income stability         +180 pts  (consistent monthly inflows)
+✓ Obligations coverage     +160 pts  (all outgoing payments met)
+⚠ Client diversity         needs work (2 clients = concentration risk)
+⚠ Volume history           needs work ($1,800 — growing toward threshold)
 
-| Tier | Score minimum | Invoice minimum | Volume minimum | Credit access |
-|------|---------------|-----------------|----------------|---------------|
-| Tier C | 0 | 1 invoice cleared | $0 | None |
-| Tier B | 510 | 10 invoices cleared | $500 verified volume | Up to $5,000 credit |
-| Tier A | 850 | 25 invoices cleared | $5,000 verified volume | Up to $50,000 credit |
-| Tier A+ | Invite only | 50+ invoices | $25,000+ volume | Up to $250,000 credit |
+Next milestone: +170 pts reaches Trusted
+Fastest path: Add one new paying client. That single signal is worth ~80 pts.
+```
 
----
+No black boxes. No mystery factors. You know exactly where you stand and exactly what to do next.
 
-## What you see in the app (Score explanation)
+## What a Monaris Score enables
 
-Every Score display should include:
+| Score | What you can access |
+|-------|-------------------|
+| Any Score | Monaris AR/AP, Private Pay, cashflow picture |
+| 510+ (Established) | Score sharing, selective disclosure, credit pre-approval view |
+| 700+ | Monaris Credit eligibility, Invoice Advance |
+| 850+ (Trusted) | Priority credit terms, Monaris BNPL full access |
+| Invite only (Verified+) | Top-tier credit limits, institutional credit routing |
 
-1. **Current score** and tier label
-2. **Progress bar** to next tier with exact points remaining
-3. **Score breakdown** — which signals help and which need improvement
-4. **What improves your score** — up to 3 specific, actionable recommendations from Mona
-5. **Score history chart** (V2)
+## How to improve your Score
 
----
+**Clear invoices on time.** Each cleared invoice strengthens your payment consistency and adds to your volume history. On-time payments are the single most impactful action.
 
-## How to improve your score
+**Increase volume.** More verified volume moves you toward tier thresholds. Volume minimums exist to ensure the Score reflects real economic activity.
 
-- **Clear invoices on time.** Each cleared invoice is +20 points. On-time payments strengthen payment timeliness.
-- **Increase volume and history.** More verified volume and longer history improve income consistency and volume history.
-- **Diversify clients.** More distinct paying counterparties helps client diversity.
-- **Repay credit on time (V2).** When Monaris Credit is available, on-time repayment is a high-weight signal.
+**Diversify your clients.** More distinct paying counterparties improve your client diversity signal. Single-client dependency is one of the most common Score limitations.
 
-Mona can give you **specific** recommendations based on your data (e.g. “Clear 3 more invoices to reach Tier B”).
+**Build history.** Time is a signal. The longer your verifiable history, the more weight your Score carries. There is no shortcut for this — just consistency.
 
----
+**Repay credit on time (V2).** When Monaris Credit is available, on-time repayment becomes a high-weight signal in your Score.
 
-## Next
+**Connect off-chain data (V2).** Each off-chain source you connect gives the MCA more signal — which means a more accurate Score and faster tier progression.
 
-- [Score tiers explained](/score/tiers-explained) — Tier C, B, A, A+ requirements and benefits
-- [Sharing your Score](/score/sharing-score) — Score card, public profile, verification
-- [Meet Mona](/mona/meet-mona) — how Mona uses your Score to give insights
+## Off-chain data sources (Available in V2)
+
+The MCA becomes significantly more powerful when you connect off-chain accounts alongside your wallet. Each source adds new signals:
+
+### Plaid: Bank account connection
+Connect your bank account to verify income deposits, balance history, and spending patterns. The MCA uses this to confirm income stability from traditional sources: salary deposits, recurring revenue, and savings patterns.
+
+### Credit Karma: Credit score integration
+Pull in your existing credit score as a supplementary signal. If you already have a FICO score, it helps, but it is not required. The MCA treats your traditional credit score as one input among many, not the only one that matters.
+
+### QuickBooks / Xero: Accounting data
+Sync your accounting platform to verify business revenue, expense categorization, and client relationships. The MCA cross-references this with your on-chain invoicing data for a complete picture of financial health.
+
+### zkTLS: Payroll and CEX verification
+Verify employment income or exchange balance history through privacy-preserving proofs. The MCA can confirm you have a regular salary or consistent exchange activity without accessing or storing the raw data.
+
+### How off-chain data affects your Score
+
+Off-chain data does not replace on-chain signals. It supplements them. The MCA gives you the best Score possible from whatever data you provide:
+
+- **On-chain only:** Full Score based on wallet history and invoice behavior
+- **On-chain + bank (Plaid):** Stronger income stability signal from verified bank deposits
+- **On-chain + credit score (Credit Karma):** Additional creditworthiness signal that can accelerate tier progression
+- **On-chain + accounting (QuickBooks/Xero):** Deeper client diversity and revenue verification
+- **All sources connected:** The most complete financial identity available — strongest possible Score
+
+## FAQ
+
+**Can the Score be gamed?**
+The Score requires both points (earned through real behavior) AND volume (real money moving). Creating fake invoices for $1 each will not reach any meaningful tier. Volume minimums are enforced at the system level.
+
+**How often does the Score update?**
+In real time. Every relevant event (invoice cleared, payment made, client pattern change) triggers a Score recalculation.
+
+**Is the Score visible to anyone else?**
+Your Score is private by default. You choose when to share it, what to share, and with whom. See [Sharing your Score](/score/sharing-score).
+
+**What if my Score drops?**
+Mona tells you exactly why your Score dropped and what to do about it. Common causes include overdue invoices, reduced activity, and client concentration changes.
+
+**How is this different from a FICO score?**
+FICO looks at debt repayment history and requires a bank account. The MCA looks at income reliability from on-chain and off-chain sources combined. It works for anyone with on-chain cashflow — and gets even stronger if you also connect traditional financial data. No bank account or credit bureau is required, but if you have them, the MCA uses them.
+
+**What is the MCA?**
+The Monaris Credit Algorithm (MCA) is the engine that calculates your Score. It blends on-chain cashflow data (invoices, payments, wallet history) with off-chain financial data (bank accounts, credit scores, accounting tools) to produce a single 0–1000 Score. It updates in real time and improves as you connect more data sources.
+
+**Do I need to connect off-chain accounts?**
+No. The MCA produces a full Score from on-chain data alone. Off-chain connections are optional but recommended: they strengthen your Score, can accelerate tier progression, and give the MCA more signal for better credit decisions.

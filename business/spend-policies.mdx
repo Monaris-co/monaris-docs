@@ -1,10 +1,45 @@
 ---
-title: "Setting up spend policies"
-description: "Rules, limits, and approval flows for Monaris Business"
+title: "Spend policies"
+description: "Per-user limits, per-category limits, and approval thresholds for Monaris Business teams"
 ---
 
-## Status: V3 — Monaris Business
+Spend policies let you set rules that enforce themselves — no manual oversight needed after setup. They are the control layer for how money moves through your team.
 
-Spend policies are part of **Monaris Business** (teams). This page describes the planned behavior. (coming soon)
+## Who this is for
 
----
+Team owners and admins on Monaris Business who want to set guardrails on team spending without micromanaging every transaction.
+
+## How it works
+
+Spend policies are defined at the team level and enforced automatically on every outgoing transaction.
+
+### Per-user limits
+Set maximum daily, weekly, or monthly spend for individual team members. Any transaction that would exceed the limit requires admin approval.
+
+### Per-category limits
+Cap spending by category — marketing, tools, contractors, operations. Categories are defined by the team admin and applied to outgoing payments.
+
+### Approval thresholds
+Any payment above a set amount (e.g. $5,000) requires one or more admin approvals before it executes. Configure the threshold and the number of required signatures.
+
+### Vendor allowlists
+Only approved wallet addresses can receive payouts. Payments to non-allowlisted addresses are blocked automatically. Admins manage the allowlist from the dashboard.
+
+## Example policies
+
+- "Any payment above $5,000 requires Admin approval"
+- "Marketing spend is capped at $10,000/month"
+- "New team members have a $1,000/week limit for the first 30 days"
+- "Payments to non-allowlisted addresses are blocked"
+
+## Availability
+
+<Note>
+Spend policies are part of **Monaris Business**, launching in **V3**.
+</Note>
+
+## Next
+
+- [Monaris Business overview](/business/teams)
+- [Payroll scheduling](/business/payroll)
+- [Team Monaris Score](/business/team-score)

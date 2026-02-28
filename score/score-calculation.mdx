@@ -1,0 +1,137 @@
+---
+title: "MCA signal reference"
+description: "Complete reference for every signal the Monaris Credit Algorithm uses to build your Score"
+---
+
+This page is a detailed reference for the signals that the **Monaris Credit Algorithm (MCA)** uses to compute the Monaris Score. For a higher-level overview, see [Understanding the Monaris Score](/score/understanding-score).
+
+## On-chain signals (V1)
+
+### 1. Payment Consistency
+
+**Weight:** High
+
+**What it measures:** The percentage of your invoices that get paid on time. Invoices cleared on or before the due date improve this signal. Invoices that go overdue weaken it.
+
+**How to improve:** Clear invoices on time. Follow up with clients who are late. Use Mona's automated reminders to prompt overdue payers.
+
+**Example impact:** A 94% on-time rate is strong. Dropping to 80% because of one habitually late client can cost significant points.
+
+### 2. Income Stability
+
+**Weight:** High
+
+**What it measures:** How regular and predictable your inflows are. The model favors consistent, periodic income over large, irregular payments.
+
+**How to improve:** Build recurring client relationships. Consistent monthly payments score better than one annual lump sum.
+
+**Example impact:** A freelancer earning $3,000 every month scores higher on this signal than someone earning $36,000 once a year — even though the total is identical.
+
+### 3. Client Diversity
+
+**Weight:** Medium
+
+**What it measures:** The number of distinct paying clients you have. Single-client dependency is a risk signal because if that client disappears, your entire income goes with them.
+
+**How to improve:** Add new paying clients. Even one additional client significantly improves this signal.
+
+**Example impact:** Going from 2 clients to 3 can be worth approximately 40–80 points, depending on your other signals.
+
+### 4. Obligations Coverage
+
+**Weight:** Medium
+
+**What it measures:** How reliably you meet your outward financial commitments. Paying vendors and obligations on time strengthens this signal.
+
+**How to improve:** Pay what you owe on schedule. Use Automated Payouts (AP) to ensure outgoing payments execute on time automatically.
+
+### 5. Volume History
+
+**Weight:** Medium
+
+**What it measures:** Your total verified transaction volume over time. Volume thresholds are required for tier progression — you cannot reach Established on points alone without $500 in real volume.
+
+**How to improve:** Process more real economic activity through Monaris. Volume must be genuine — the system detects artificial volume patterns.
+
+**Tier thresholds:**
+| Tier | Minimum volume |
+|------|---------------|
+| Building | $0 |
+| Established | $500 |
+| Trusted | $5,000 |
+| Verified+ | $25,000 |
+
+### 6. Account Depth
+
+**Weight:** Low (but growing over time)
+
+**What it measures:** How long you have been building verifiable history on Monaris. Older, deeper history carries more weight. This signal rewards patience and consistency.
+
+**How to improve:** Keep using Monaris. There is no way to accelerate time — this signal rewards sustained presence.
+
+## Off-chain signals (Available in V2)
+
+The MCA expands significantly in V2 to incorporate off-chain data. Each connected source adds new signals:
+
+### 7. Bank Statement Consistency (Plaid)
+
+**Weight:** Medium-High
+
+**What it measures:** Regular income deposits, balance trends, and spending patterns from your bank account. The MCA cross-references bank deposits with on-chain inflows to build a complete income picture.
+
+**How to connect:** Link your bank account via Plaid in the Monaris dashboard. Read-only — Monaris never initiates bank transactions.
+
+### 8. Traditional Credit Score (Credit Karma)
+
+**Weight:** Medium
+
+**What it measures:** Your existing FICO or VantageScore as a supplementary creditworthiness signal. A good traditional score helps your Monaris Score, but a missing or low traditional score does not hurt it — the MCA treats it as optional input, not a gate.
+
+**How to connect:** Link your Credit Karma account. Monaris reads your score and key factors only.
+
+### 9. Accounting Data (QuickBooks / Xero)
+
+**Weight:** Medium
+
+**What it measures:** Business revenue verification, expense categorization, client and vendor relationships, and P&L patterns. The MCA cross-references accounting data with on-chain invoice activity for deeper client diversity and financial health signals.
+
+**How to connect:** Sync your QuickBooks or Xero account from the integrations page.
+
+### 10. Payroll and CEX Verification (zkTLS)
+
+**Weight:** Medium
+
+**What it measures:** Employment income or exchange balance history, verified through privacy-preserving proofs. The MCA confirms regular salary or exchange activity without accessing or storing raw data.
+
+**How to connect:** Initiate a zkTLS proof from the off-chain data section. The proof is generated locally and submitted to the MCA.
+
+### 11. Repayment Behavior
+
+**Weight:** High
+
+**What it measures:** On-time repayment of Monaris Credit and BNPL products. This becomes one of the highest-weight signals after you take your first credit product.
+
+### 12. Behavioral Patterns
+
+**Weight:** Low
+
+**What it measures:** Churn signals, dispute history, and default patterns across the platform.
+
+## Anti-gaming protections
+
+The MCA includes several protections against manipulation:
+
+- **Volume minimums** — tiers require real money moving, not just points
+- **Invoice count minimums** — a minimum number of real cleared invoices is required
+- **Pattern detection** — artificial or circular transaction patterns are detected and excluded
+- **Time requirements** — Account Depth cannot be faked or accelerated
+
+## Score display format
+
+Every Score display in the Monaris app shows:
+
+1. **Current score** (0–1000) and tier label
+2. **Progress bar** to the next tier with exact points remaining
+3. **Signal breakdown** — which signals are strong and which need work
+4. **Actionable recommendations** — up to 3 specific next steps from Mona
+5. **Score history chart** (Available in V2)
