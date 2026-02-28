@@ -7,3 +7,12 @@ header a[href="/"],
 [class*="topbar"] a[href="/"] {
   color: #CCFF04 !important;
 }
+
+/* Monaris Docs: navbar primary button text color */
+nav a[href="https://app.monaris.co"],
+header a[href="https://app.monaris.co"],
+[class*="navbar"] a[href="https://app.monaris.co"],
+a[href="https://app.monaris.co"] {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+}
