@@ -31,7 +31,7 @@
             ]
           },
           {
-            "group": "Monaris Private Pay",
+            "group": "Monaris Private",
             "pages": [
               "pay/private-pay-guide",
               "pay/connecting-wallet",
