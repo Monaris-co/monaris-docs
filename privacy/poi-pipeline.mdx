@@ -1,0 +1,62 @@
+---
+title: "POI Pipeline"
+description: "Proof of Innocence — how shielded funds become spendable and what the balance buckets mean"
+---
+
+RAILGUN requires Proof of Innocence (POI) for funds to become spendable. This prevents the shielded pool from being used for illicit activity.
+
+## POI process
+
+```
+STEP 1: Generate local POIs
+  → generatePOIsForWallet(networkName, walletId)
+  → Creates proofs for unproven UTXOs in the wallet
+
+STEP 2: Fetch external POIs from aggregator
+  → refreshReceivePOIsForWallet(TXIDVersion.V2_PoseidonMerkle, network, walletId)
+  → Aggregator nodes: ppoi-agg.horsewithsixlegs.xyz, poi.railgun.org
+
+STEP 3: Balance bucket transition
+  → ShieldPending → ProofSubmitted → Spendable
+  → Typically takes 1-2 minutes after shielding
+
+STEP 4: Diagnostic check
+  → getBucketBreakdown(walletId)
+  → Shows funds per bucket for debugging
+```
+
+## Balance buckets
+
+| Bucket | Meaning |
+|--------|---------|
+| **Spendable** | Funds available for private transfers and unshielding |
+| **ShieldPending** | Recently shielded, waiting for POI submission |
+| **ProofSubmitted** | POI submitted, waiting for aggregator confirmation |
+| **MissingInternalPOI** | Local proof not yet generated |
+| **MissingExternalPOI** | Aggregator has not confirmed yet |
+
+Funds transition through buckets automatically. The typical path after shielding:
+
+```
+ShieldPending → ProofSubmitted → Spendable
+                 (~1-2 minutes)
+```
+
+If funds are stuck in `MissingInternalPOI` or `MissingExternalPOI`, a POI refresh can be triggered manually. The `getBucketBreakdown()` diagnostic shows exactly which bucket holds each portion of the balance.
+
+## SDK and dependencies
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `@railgun-community/wallet` | ^10.4.1 | Core RAILGUN wallet SDK |
+| `@railgun-community/shared-models` | 7.5.0 | Types, enums, interfaces |
+| `snarkjs` | ^0.7.6 | Groth16 prover (WASM, browser-side) |
+| `level-js` | ^6.1.0 | IndexedDB-backed merkle tree storage |
+
+**No server-side component.** All ZK proof generation, key derivation, and wallet management runs in the browser. RAILGUN is invisible infrastructure — Monaris is the application layer users interact with.
+
+## Related
+
+- [Shield & Unshield Flows](/privacy/shield-unshield) — how funds enter and exit the shielded pool
+- [Storage Architecture](/privacy/storage-architecture) — where merkle tree state and artifacts are stored
+- [Key Derivation](/privacy/key-derivation) — how the wallet is created

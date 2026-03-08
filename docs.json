@@ -35,7 +35,12 @@
             "pages": [
               "pay/private-pay-guide",
               "pay/connecting-wallet",
-              "privacy/secrets-as-a-service"
+              "privacy/secrets-as-a-service",
+              "privacy/key-derivation",
+              "privacy/shield-unshield",
+              "privacy/private-payment-modes",
+              "privacy/poi-pipeline",
+              "privacy/storage-architecture"
             ]
           },
           {
@@ -88,6 +93,8 @@
             "pages": [
               "reference/score-calculation",
               "reference/credit-tiers",
+              "reference/smart-contracts",
+              "reference/settlement-waterfall",
               "reference/privacy-settings",
               "reference/supported-wallets-chains",
               "reference/glossary",

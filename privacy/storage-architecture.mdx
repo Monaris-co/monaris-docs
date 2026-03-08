@@ -1,0 +1,81 @@
+---
+title: "Storage Architecture"
+description: "Client-side and off-chain storage design — where keys live and what never leaves the browser"
+---
+
+## Overview
+
+Monaris Private Pay uses a split storage model: sensitive cryptographic material stays in the browser, while encrypted backups and payment metadata are stored off-chain. Raw private key material (mnemonic, spending key) exists only in browser memory and an encrypted off-chain backup. Monaris servers never see unencrypted keys.
+
+## Client-side storage (never leaves browser)
+
+```
+CLIENT-SIDE:
+├── IndexedDB: "monarisrailgundb"
+│   └── Merkle tree state, UTXO data (via level-js)
+├── IndexedDB: "monaris-railgun-artifacts" (v4)
+│   └── ZK circuit artifacts (zkeys, wasm files)
+├── localStorage: "monaris_pw_cache"
+│   └── Cached wallet info (id, railgunAddress, encryptionKey)
+└── localStorage: "monaris_pb_cache"
+    └── Cached balances + last sync timestamp
+```
+
+### IndexedDB: `monarisrailgundb`
+
+Stores the local copy of the RAILGUN merkle tree and UTXO data. Backed by `level-js` (^6.1.0), which provides a LevelDB-compatible interface over IndexedDB. This database is populated during quicksync and updated as new blocks arrive.
+
+### IndexedDB: `monaris-railgun-artifacts` (v4)
+
+Stores ZK circuit artifacts — the zkey files and WASM files needed for Groth16 proof generation. These are downloaded once and cached locally. Version 4 of the artifact store is currently in use.
+
+### localStorage: `monaris_pw_cache`
+
+Caches the derived wallet ID, RAILGUN address, and encryption key between page loads within a session. This avoids requiring a new signature on every page navigation.
+
+### localStorage: `monaris_pb_cache`
+
+Caches the most recent balance breakdown and last sync timestamp. Used to show approximate balances immediately on page load before a full merkle tree sync completes.
+
+## Off-chain storage (encrypted)
+
+```
+OFF-CHAIN (encrypted):
+├── user_private_wallets table
+│   └── AES-GCM encrypted mnemonic blob per user per chain
+│   └── PBKDF2 key derivation (100k iterations)
+└── private_receipts table
+    └── Payment records for invoice reconciliation
+```
+
+### `user_private_wallets` table
+
+Stores one encrypted mnemonic blob per user per chain. The encryption uses:
+
+- **Algorithm:** AES-GCM
+- **Key derivation:** PBKDF2 with 100,000 iterations
+- **Purpose:** Recovery — if a user clears their browser data, the mnemonic can be re-derived from a signature or restored from the encrypted backup
+
+### `private_receipts` table
+
+Stores payment records for invoice reconciliation. These records link private payments to invoices without exposing the on-chain transaction details. Used by the invoice system to mark payments as cleared and by the Score engine to register payment signals.
+
+## Design principle
+
+| What | Where | Encrypted? |
+|------|-------|------------|
+| Mnemonic (active session) | Browser memory only | No (plaintext in memory) |
+| Mnemonic (backup) | Off-chain database | Yes (AES-GCM, PBKDF2 100k) |
+| Merkle tree state | IndexedDB (browser) | No (public data) |
+| ZK circuit artifacts | IndexedDB (browser) | No (public data) |
+| Wallet ID + address cache | localStorage (browser) | No (non-sensitive) |
+| Balance cache | localStorage (browser) | No (approximate, non-sensitive) |
+| Payment receipts | Off-chain database | Application-level access control |
+
+**The critical invariant:** raw private key material (mnemonic, spending key) exists only in browser memory and encrypted off-chain backup. Monaris servers never see unencrypted keys.
+
+## Related
+
+- [Key Derivation](/privacy/key-derivation) — how the mnemonic is generated
+- [Shield & Unshield Flows](/privacy/shield-unshield) — how the merkle tree and artifacts are used
+- [POI Pipeline](/privacy/poi-pipeline) — how balance data flows through buckets
