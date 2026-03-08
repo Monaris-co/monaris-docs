@@ -13,13 +13,20 @@ A private payment and settlement rail built on RAILGUN's shielded pool. All paym
 
 ## The core UX breakthrough
 
-```
-0x address    ✅  (users keep their normal wallet)
-One-click     ✅  (no multi-step setup)
-0zk address   ❌  (users never see or manage one)
-```
+Most privacy solutions force users through a multi-step setup: create a separate privacy wallet, fund it, manage two balances, and interact with unfamiliar protocols. Monaris removes all of that.
 
-Other privacy implementations require users to create a separate 0zk wallet, fund it, and manage two addresses. Monaris removes that entirely. The RAILGUN wallet is derived deterministically from the user's existing Privy embedded wallet — silently, client-side, on first login.
+| What users deal with | Other privacy tools | Monaris Private Pay |
+|---------------------|--------------------|--------------------|
+| **Wallet setup** | Create and manage a separate privacy wallet | ✅ Use your existing wallet — nothing new to create |
+| **Funding** | Manually transfer funds to the privacy wallet | ✅ One-click shield from your current balance |
+| **Address management** | Track two addresses (public + private) | ✅ One address — private wallet is invisible |
+| **Gas fees** | Pay gas for every private transaction | ✅ Gasless — Monaris sponsors all transaction fees |
+| **Proof generation** | Manual, often requires CLI or technical steps | ✅ Automatic — ZK proofs generated silently in-browser |
+| **Key management** | Export/backup separate private keys | ✅ Deterministic — same wallet always derives the same private wallet |
+| **Recovery** | Lose private keys = lose private funds | ✅ Encrypted backup + re-derivable from your wallet signature |
+| **Learning curve** | Understand ZK circuits, shielded pools, UTXOs | ✅ Click "Pay Privately" — that is the entire UX |
+
+**The result:** privacy that feels like a feature toggle, not a protocol migration.
 
 ## Who it is for
 
