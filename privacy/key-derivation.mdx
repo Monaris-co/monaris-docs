@@ -1,77 +1,116 @@
 ---
-title: "Key Derivation Specification"
-description: "How the RAILGUN 0zk wallet is derived deterministically from the user's Privy embedded wallet"
+title: "Key Derivation — How Privacy Wallets Work"
+description: "How Monaris derives a private wallet from your existing address — no extra setup, no separate keys to manage"
 ---
 
-The RAILGUN wallet is derived deterministically from the user's Privy embedded wallet. The user signs one message on first login. The same wallet is always derived from the same signature.
+## The problem with privacy wallets
 
-## Derivation steps
+Every existing privacy solution forces users to create and manage a separate wallet. You get a new address (usually starting with `0zk`), you have to fund it separately, and you have to remember which wallet holds which funds. For most users, this is a dealbreaker.
+
+Monaris eliminates this entirely.
+
+## How Monaris solves it
+
+When you log into Monaris, your private wallet is derived automatically from your existing wallet. You sign one message. That signature — combined with deterministic cryptographic functions — produces a private wallet that is always the same for your account. You never see it, manage it, or think about it.
 
 ```
-STEP 1: PASSWORD DERIVATION
-  SHA-256("monaris-pw-{walletAddress.toLowerCase()}-v1")
-  → hex string used as RAILGUN wallet password
-
-STEP 2: MNEMONIC DERIVATION
-  User signs message: "Monaris Private Wallet Derivation v1"
-  → signature (via personal_sign from Privy embedded wallet)
-  → keccak256(utf8Bytes(signature)) → 32 bytes entropy
-  → first 16 bytes → ethers.Mnemonic.fromEntropy()
-  → 12-word BIP-39 mnemonic
-
-STEP 3: RAILGUN WALLET CREATION
-  createRailgunWallet(password, mnemonic, {})
-  → { id, railgunAddress }
-  → railgunAddress = 0zk... (RAILGUN shielded address)
-
-RESULT:
-  Same 0x address → same signature → same mnemonic → same 0zk address
-  User never sees or manages the 0zk address
+Your existing wallet (0x...)
+        ↓ sign one message
+Deterministic derivation
+        ↓
+Private wallet (0zk...) — created silently
+        ↓
+Private Pay ready — one click
 ```
 
-## Derivation flow diagram
+## The derivation architecture
 
 ```mermaid
 flowchart TD
-    PrivyWallet["Privy Embedded Wallet (0x...)"] --> SignMsg["personal_sign('Monaris Private Wallet Derivation v1')"]
-    SignMsg --> Signature["Signature (bytes)"]
+    subgraph UserAction["What you do"]
+        Login["Log into Monaris"]
+        Sign["Sign one message (first login only)"]
+    end
 
-    Signature --> Keccak["keccak256(utf8(signature))"]
-    Keccak --> Entropy["Entropy (first 16 bytes)"]
-    Entropy --> Mnemonic["BIP-39 Mnemonic (12 words)"]
+    subgraph Derivation["What happens silently"]
+        direction TB
+        Wallet["Your Wallet Address (0x...)"]
 
-    PrivyWallet --> SHA["SHA-256('monaris-pw-{address}-v1')"]
-    SHA --> Password["RAILGUN Password (hex)"]
+        Wallet --> PasswordPath["Password Derivation"]
+        PasswordPath --> SHA["SHA-256 hash of wallet-specific string"]
+        SHA --> Password["Encryption Password"]
 
-    Mnemonic --> CreateWallet["createRailgunWallet(password, mnemonic)"]
-    Password --> CreateWallet
-    CreateWallet --> RailgunWallet["RAILGUN Wallet { id, 0zk address }"]
+        Sign --> SigBytes["Signature Bytes"]
+        SigBytes --> Keccak["keccak256 hash"]
+        Keccak --> Entropy["16 bytes of entropy"]
+        Entropy --> Mnemonic["12-word recovery phrase (BIP-39)"]
+    end
+
+    subgraph Result["What you get"]
+        Mnemonic --> CreateWallet["Private Wallet Created"]
+        Password --> CreateWallet
+        CreateWallet --> PrivateWallet["Private Wallet (0zk...)"]
+        PrivateWallet --> Ready["Private Pay — ready to use"]
+    end
+
+    Login --> Wallet
+    Login --> Sign
+
+    style UserAction fill:#1a1a2e,stroke:#CCFF04,color:#fff
+    style Derivation fill:#16213e,stroke:#0f3460,color:#fff
+    style Result fill:#0f3460,stroke:#CCFF04,color:#fff
 ```
 
 ## Key properties
 
-| Property | Detail |
-|----------|--------|
-| **Deterministic** | Same Privy wallet always produces the same RAILGUN wallet |
-| **Client-side only** | Private key material never leaves the browser |
-| **One-time signature** | Mnemonic is cached in memory per session to avoid repeated sign prompts |
-| **Encrypted backup** | Mnemonic is encrypted (AES-GCM, PBKDF2 100k iterations) and stored off-chain for recovery |
+<CardGroup cols={2}>
+  <Card title="Deterministic" icon="fingerprint">
+    Same wallet → same signature → same private wallet. Always. If you log out and back in, your private balance is exactly where you left it.
+  </Card>
+  <Card title="Client-side only" icon="lock">
+    Your private key material never leaves your browser. Monaris servers never see your recovery phrase or spending keys. Ever.
+  </Card>
+  <Card title="One-time signature" icon="signature">
+    You sign once on first login. After that, the derived wallet is cached in your session. No repeated prompts, no friction.
+  </Card>
+  <Card title="Encrypted backup" icon="cloud-arrow-up">
+    Your recovery phrase is encrypted with military-grade encryption (AES-GCM, 100,000 rounds of key derivation) and stored as an encrypted blob for recovery.
+  </Card>
+</CardGroup>
 
-## What this means for users
+## Technical specification
 
-The user connects their wallet and signs one message. From that point forward, they have a private payment capability — no 0zk address management, no separate wallet setup, no protocol interaction. The derivation is invisible.
+```
+STEP 1 — PASSWORD
+  Input:  "monaris-pw-{walletAddress.toLowerCase()}-v1"
+  Hash:   SHA-256 → hex string
+  Output: Encryption password (deterministic, not user-chosen)
 
-If the user logs out and back in, the same signature produces the same mnemonic, which produces the same RAILGUN wallet. Their private balance is always accessible from their original wallet.
+STEP 2 — RECOVERY PHRASE
+  Prompt: User signs "Monaris Private Wallet Derivation v1"
+  Process: signature → keccak256 → first 16 bytes → BIP-39 mnemonic
+  Output: 12-word recovery phrase
+
+STEP 3 — WALLET CREATION
+  createRailgunWallet(password, mnemonic, {})
+  Output: { id, railgunAddress: "0zk..." }
+```
 
 ## Security model
 
-- The mnemonic exists in browser memory only during the active session
-- An encrypted copy (AES-GCM with PBKDF2 key derivation at 100,000 iterations) is stored off-chain for recovery
-- Monaris servers never see the unencrypted mnemonic or spending key
-- The derivation password is a deterministic hash — not user-chosen, not stored
+| Threat | Protection |
+|--------|------------|
+| Server compromise | Server never has unencrypted keys — only encrypted blobs |
+| Browser compromise | Keys exist in memory only during active session |
+| Recovery needed | Encrypted backup can be decrypted only with wallet signature |
+| Replay attack | Derivation is wallet-address-specific — different wallets produce different private wallets |
 
-## Related
+**The critical invariant:** raw private key material exists only in browser memory and an encrypted backup. Monaris infrastructure never sees unencrypted keys.
 
-- [Shield & Unshield Flows](/privacy/shield-unshield) — what happens after the wallet is created
-- [Storage Architecture](/privacy/storage-architecture) — where keys and data are stored
-- [Private Pay Guide](/pay/private-pay-guide) — user-facing overview
+---
+
+## What comes next
+
+<Card title="Shield & Unshield Flows" icon="arrow-right" href="/privacy/shield-unshield">
+  Now that you understand how the private wallet is created, learn how funds move in and out of the private pool.
+</Card>

@@ -1,126 +1,178 @@
 ---
 title: "Shield & Unshield Flows"
-description: "Engine initialization, shielding USDC into the private pool, and unshielding back to public — with proof system details"
+description: "How funds move between your public wallet and private balance — the engine behind zero-knowledge payments"
 ---
 
-## Two-phase engine initialization
+## The two states of your money
 
-RAILGUN requires a two-phase boot sequence. This is invisible to the user.
+In Monaris, your USDC exists in one of two states:
 
-```
-PHASE 1 — ENGINE START (no network)
-  ├── Initialize RAILGUN WASM engine
-  ├── Open local database for merkle tree state
-  ├── Open artifact store for ZK circuit files (zkeys, wasm)
-  └── Configure POI aggregator nodes
+| State | Visibility | What you can do |
+|-------|-----------|-----------------|
+| **Public** | Visible on-chain to everyone | Send normal payments, receive funds |
+| **Shielded** | Hidden behind ZK proofs | Send private payments, receive privately |
 
-PHASE 2 — PROVIDER LOAD (network-dependent)
-  ├── Connect to network RPCs
-  ├── Trigger quicksync (download compressed merkle tree)
-  ├── Must run AFTER wallet import (so quicksync matches UTXOs to viewing key)
-  ├── Retries up to 4 times with exponential backoff (3s → 6s → 12s → 24s)
-  └── Once synced: balances available, transactions possible
-```
+**Shielding** moves funds from public → private. **Unshielding** moves them back. Both happen in one click.
 
-### Initialization sequence diagram
+---
+
+## How the engine boots
+
+Before any private operation, the privacy engine initializes silently in the background. The user sees nothing — this happens during login.
 
 ```mermaid
 sequenceDiagram
     participant User
-    participant Privy
-    participant Engine
+    participant App as Monaris App
+    participant Engine as Privacy Engine
     participant Network
-    participant POI
+    participant POI as Proof Validators
 
-    User->>Privy: Login
-    Privy->>Engine: ensureEngineStarted()
-    Note over Engine: Phase 1: WASM, DB, artifacts
-    Privy->>Privy: Derive password + mnemonic
-    Privy->>Engine: createRailgunWallet(password, mnemonic)
-    Engine-->>Privy: { id, 0zk address }
-    Engine->>Network: loadProviderAndSync()
-    Note over Network: Phase 2: RPCs, quicksync
-    Network-->>Engine: Merkle tree synced
-    Engine->>POI: refreshPOIsForWallet()
-    POI-->>Engine: Spendable balance ready
-    Engine-->>User: Private Pay enabled
+    User->>App: Login
+    App->>Engine: Start engine (WASM + local database)
+    Note over Engine: Load ZK circuits<br/>Open merkle tree store<br/>Configure proof validators
+
+    App->>App: Derive private wallet from signature
+    App->>Engine: Import wallet
+
+    Engine->>Network: Connect to RPCs
+    Network->>Engine: Download compressed merkle tree
+    Note over Network: Quicksync — matches UTXOs<br/>to your viewing key
+
+    Engine->>POI: Validate proof status
+    POI-->>Engine: Balance confirmed spendable
+
+    Engine-->>User: ✅ Private Pay ready
 ```
+
+The engine retries up to 4 times with exponential backoff if network sync fails. Once sync completes, your private balance is available.
 
 ---
 
-## Shield flow — moving USDC from public to private
+## Shield — moving funds into privacy
 
-Shielding moves public USDC (visible on-chain) into the RAILGUN shielded pool (private).
+Shielding takes USDC from your public wallet and deposits it into the shielded pool. After shielding, the funds are private — no one can see the balance, the owner, or the origin.
 
-```
-1. User approves USDC to RAILGUN proxy contract
-   → approve(0xFA70...4b9, amount) on USDC contract
-
-2. Build shield transaction
-   → Generate random shieldPrivateKey (32 bytes)
-   → Construct shieldERC20Recipients: [{ token, amount, recipient: 0zk address }]
-   → populateShield() → returns { to, data, value }
-
-3. Send transaction
-   → Privy sends tx to RAILGUN proxy (gasless via Privy gas sponsorship)
-   → On-chain: USDC transferred to shielded pool, UTXO created
-
-4. Post-shield
-   → Balance moves to "ShieldPending" bucket
-   → POI proof submitted → moves to "Spendable" bucket (takes ~1-2 minutes)
-```
-
-### Shield flow diagram
+### What happens step by step
 
 ```mermaid
-flowchart LR
-    PublicUSDC["Public USDC (0x wallet)"] --> Approve["approve() to RAILGUN Proxy"]
-    Approve --> BuildShield["populateShield()"]
-    BuildShield --> SendTx["Send tx (gasless via Privy)"]
-    SendTx --> Pool["RAILGUN Shielded Pool"]
-    Pool --> Pending["ShieldPending bucket"]
-    Pending --> POIProof["POI Proof generated + submitted"]
-    POIProof --> Spendable["Spendable balance"]
+flowchart TD
+    subgraph Step1["Step 1: Approve"]
+        Approve["Approve USDC to privacy contract"]
+    end
+
+    subgraph Step2["Step 2: Build"]
+        Build["Build shield transaction"]
+        Build --> GenKey["Generate random shield key (32 bytes)"]
+        GenKey --> Recipients["Set recipient = your 0zk address"]
+        Recipients --> Populate["populateShield() → transaction data"]
+    end
+
+    subgraph Step3["Step 3: Send"]
+        Send["Send transaction (gasless)"]
+        Send --> Pool["USDC enters shielded pool"]
+        Pool --> UTXO["Private UTXO created on-chain"]
+    end
+
+    subgraph Step4["Step 4: Confirm"]
+        Pending["Balance: ShieldPending"]
+        Pending --> ProofGen["Proof of Innocence generated"]
+        ProofGen --> Spendable["Balance: Spendable ✅"]
+    end
+
+    Step1 --> Step2 --> Step3 --> Step4
+
+    style Step1 fill:#1a1a2e,stroke:#CCFF04,color:#fff
+    style Step2 fill:#16213e,stroke:#0f3460,color:#fff
+    style Step3 fill:#0f3460,stroke:#CCFF04,color:#fff
+    style Step4 fill:#1a1a2e,stroke:#CCFF04,color:#fff
 ```
+
+**What the chain sees:** USDC was transferred to a pool contract. Nothing more. No link to your private balance.
+
+**Time to spendable:** ~1–2 minutes after the transaction confirms.
 
 ---
 
-## Unshield flow — moving USDC from private to public
+## Unshield — moving funds back to public
 
-Unshielding generates a ZK proof (Groth16 SNARK) and moves funds from the shielded pool back to a public 0x address.
+Unshielding generates a zero-knowledge proof that you own funds in the pool, and transfers them back to your public wallet — without revealing which deposit those funds came from.
+
+### The proof generation process
+
+This is where the cryptography happens. The entire proof is generated in your browser — no server involved.
 
 ```
-1. Trigger balance scan (refresh merkle tree)
-
-2. Initialize Groth16 prover
-   → snarkjs WASM prover runs in browser (no server)
-   → Clear artifact memory cache to avoid stale data
-
-3. Generate unshield proof
-   → gasEstimateForUnprovenUnshield() → gas estimate
-   → generateUnshieldProof() → Groth16 proof (π_A, π_B, π_C + public signals)
-   → Progress callback updates UI ("Generating proof... 40%")
-
-4. Populate proved transaction
-   → populateProvedUnshield() → { to, data, value, gasEstimate }
-
-5. Send transaction
-   → Privy sends tx (gasless)
-   → USDC appears in public 0x wallet
+1. SCAN      →  Refresh merkle tree to find your UTXOs
+2. PROVE     →  Generate Groth16 ZK proof (in-browser, ~10-30 seconds)
+3. POPULATE  →  Build transaction with proof attached
+4. SEND      →  Submit transaction (gasless)
+5. RECEIVE   →  USDC appears in your public wallet
 ```
 
-## Proof system
+### Proof system details
 
-| Property | Value |
-|----------|-------|
-| **Circuit** | Groth16 on BN128 curve |
-| **Prover** | snarkjs ^0.7.6 (WASM, runs in browser) |
+| Component | Specification |
+|-----------|--------------|
+| **Proof system** | Groth16 (most efficient ZK-SNARK) |
+| **Curve** | BN128 |
+| **Prover** | snarkjs ^0.7.6 — runs entirely in-browser via WASM |
 | **Circuit type** | 2x2 PoseidonMerkle |
-| **Proof elements** | π_A (G1 point), π_B (G2 point), π_C (G1 point), public signals |
-| **Trusted server** | None — all proving happens client-side |
+| **Proof elements** | π_A (G1), π_B (G2), π_C (G1) + public signals |
+| **Server involvement** | None — 100% client-side |
 
-## Related
+The proof mathematically demonstrates: *"I own funds in this pool and I am authorized to withdraw them"* — without revealing which specific deposit is being withdrawn, when it was made, or by whom.
 
-- [Key Derivation](/privacy/key-derivation) — how the RAILGUN wallet is created
-- [Private Payment Modes](/privacy/private-payment-modes) — how payments flow after shielding
-- [POI Pipeline](/privacy/poi-pipeline) — how funds become spendable
+---
+
+## The privacy guarantee
+
+```mermaid
+flowchart TD
+    subgraph Before["Without Monaris Private"]
+        direction LR
+        A1["Alice (0x1a2b...)"] -->|"$2,500 USDC"| B1["Bob (0x3c4d...)"]
+    end
+
+    subgraph After["With Monaris Private"]
+        direction TB
+
+        A2["Alice deposits into pool"] --> Pool["Shielded Pool"]
+        X1["User X deposits"] --> Pool
+        X2["User Y deposits"] --> Pool
+        X3["User Z deposits"] --> Pool
+
+        Pool --> B2["Bob withdraws from pool"]
+        Pool --> Y1["User M withdraws"]
+        Pool --> Y2["User N withdraws"]
+    end
+
+    subgraph ChainSees["What chain analysis sees"]
+        direction TB
+        Q1["❌ Cannot link Alice's deposit to Bob's withdrawal"]
+        Q2["❌ Cannot determine the payment amount"]
+        Q3["❌ Cannot identify the counterparty relationship"]
+        Q4["✅ Can only verify: a valid transaction occurred"]
+    end
+
+    After --> ChainSees
+
+    style Before fill:#1a1a2e,stroke:#ff6b6b,color:#fff
+    style After fill:#16213e,stroke:#CCFF04,color:#fff
+    style ChainSees fill:#0f3460,stroke:#CCFF04,color:#fff
+```
+
+The shielded pool acts as an **anonymity set**. When Alice shields funds and Bob unshields, the ZK proof breaks the on-chain link between the two transactions. Even sophisticated chain analysis cannot connect deposits to withdrawals — because the proof reveals nothing about which deposit funded which withdrawal.
+
+---
+
+## What comes next
+
+<CardGroup cols={2}>
+  <Card title="Private Payment Modes" icon="arrow-right" href="/privacy/private-payment-modes">
+    Learn how shielded funds are used to send private payments — including the future Private Payment Router.
+  </Card>
+  <Card title="Key Derivation" icon="key" href="/privacy/key-derivation">
+    Understand how the private wallet is created from your existing address.
+  </Card>
+</CardGroup>

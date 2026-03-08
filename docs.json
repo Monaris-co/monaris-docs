@@ -34,13 +34,10 @@
             "group": "Monaris Private",
             "pages": [
               "pay/private-pay-guide",
-              "pay/connecting-wallet",
               "privacy/secrets-as-a-service",
               "privacy/key-derivation",
               "privacy/shield-unshield",
-              "privacy/private-payment-modes",
-              "privacy/poi-pipeline",
-              "privacy/storage-architecture"
+              "privacy/private-payment-modes"
             ]
           },
           {

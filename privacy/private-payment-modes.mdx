@@ -1,82 +1,291 @@
 ---
 title: "Private Payment Modes"
-description: "Two modes for sending private payments — Shield-to-Recipient and Private Transfer"
+description: "Two ways to pay privately today — and the Private Payment Router coming in V2 that makes private payments the default for all of Monaris"
 ---
 
-Two modes exist for sending private payments through Monaris. The mode is selected automatically based on the sender's balance state.
+## How private payments work today
 
-## Mode A — Shield-to-Recipient (from public balance)
+Monaris supports two modes for sending private payments. The system selects the optimal mode automatically based on where the sender's funds are.
 
-Used when the sender has USDC in their public 0x wallet and wants to pay a recipient privately.
+---
 
-1. Resolve seller's 0zk address from their 0x address (deterministic derivation)
-2. Approve USDC to RAILGUN proxy
-3. Build shield transaction with `recipient = seller's 0zk address`
-4. Send — USDC goes directly into seller's private balance
-5. Record receipt off-chain, notify seller
+## Mode A — Direct Shield to Recipient
 
-The sender's public USDC moves directly into the recipient's shielded balance in a single transaction. The sender does not need to shield first.
+**When:** You have public USDC and want to pay someone privately.
 
-## Mode B — Private Transfer (from shielded balance)
+Your USDC goes directly from your public wallet into the recipient's private balance — in a single transaction.
 
-Used when the sender already has shielded USDC in their private balance.
+```mermaid
+flowchart LR
+    subgraph Sender["Sender"]
+        PublicUSDC["Public USDC (0x wallet)"]
+    end
 
-1. Initialize wallet, check shielded balance
-2. Resolve recipient's 0zk address
-3. Generate transfer proof (Groth16)
-4. Send private transfer through RAILGUN pool
-5. Record receipt off-chain, notify seller
+    subgraph Privacy["Privacy Layer"]
+        Resolve["Resolve recipient's private address"]
+        Shield["Shield directly to recipient"]
+    end
 
-This mode is fully private end-to-end. Both the sender's and recipient's funds are in the shielded pool throughout. The on-chain footprint is a single ZK proof.
+    subgraph Recipient["Recipient"]
+        PrivateBalance["Recipient's Private Balance"]
+        Receipt["Private Receipt generated"]
+    end
 
-## End-to-end flow diagram
+    PublicUSDC --> Resolve --> Shield --> PrivateBalance
+    Shield --> Receipt
+
+    style Sender fill:#1a1a2e,stroke:#CCFF04,color:#fff
+    style Privacy fill:#16213e,stroke:#0f3460,color:#fff
+    style Recipient fill:#0f3460,stroke:#CCFF04,color:#fff
+```
+
+**What happens:**
+1. Monaris resolves the recipient's private address from their public address (deterministic — see [Key Derivation](/privacy/key-derivation))
+2. USDC is approved to the privacy contract
+3. A shield transaction is built with the recipient's private address as the target
+4. One gasless transaction — USDC enters the recipient's private balance directly
+5. Private receipt generated, invoice marked cleared, Score updated
+
+**On-chain visibility:** A deposit into the shielded pool. That is all. No link between sender and recipient.
+
+---
+
+## Mode B — Private Transfer (Pool to Pool)
+
+**When:** You already have shielded USDC from a previous shield operation.
+
+Funds move entirely within the private pool. The sender's shielded balance decreases; the recipient's shielded balance increases. The on-chain footprint is a single ZK proof.
+
+```mermaid
+flowchart LR
+    subgraph Sender["Sender"]
+        ShieldedSender["Shielded Balance"]
+    end
+
+    subgraph Pool["Shielded Pool"]
+        Proof["Groth16 ZK Proof"]
+        Transfer["Private Transfer"]
+    end
+
+    subgraph Recipient["Recipient"]
+        ShieldedRecipient["Shielded Balance"]
+        Receipt["Private Receipt"]
+    end
+
+    ShieldedSender --> Proof --> Transfer --> ShieldedRecipient
+    Transfer --> Receipt
+
+    style Sender fill:#1a1a2e,stroke:#CCFF04,color:#fff
+    style Pool fill:#16213e,stroke:#0f3460,color:#fff
+    style Recipient fill:#0f3460,stroke:#CCFF04,color:#fff
+```
+
+**What happens:**
+1. Sender's wallet initializes, checks shielded balance
+2. Recipient's private address is resolved
+3. A Groth16 proof is generated in-browser (~10–30 seconds)
+4. The proof is submitted on-chain — funds move within the pool
+5. Private receipt generated, invoice marked cleared, Score updated
+
+**On-chain visibility:** A ZK proof was submitted. Nothing else. No amounts, no addresses, no patterns.
+
+---
+
+## End-to-end: what a private payment looks like
 
 ```mermaid
 sequenceDiagram
     participant Buyer
     participant Monaris
-    participant RAILGUN
+    participant Privacy as Privacy Engine
     participant Seller
 
     Buyer->>Monaris: Click "Pay Privately"
-    Monaris->>Monaris: Resolve seller 0zk from seller 0x
-    Monaris->>Buyer: Approve USDC to RAILGUN proxy
+    Monaris->>Monaris: Check buyer's balance state
 
-    alt Shield-to-Recipient
-        Monaris->>RAILGUN: populateShield(recipient=seller 0zk)
-        Buyer->>RAILGUN: Send shield tx (gasless)
-        RAILGUN-->>Seller: USDC in seller's shielded balance
-    else Private Transfer
-        Monaris->>RAILGUN: generateTransferProof()
-        Buyer->>RAILGUN: Send private transfer
-        RAILGUN-->>Seller: USDC in seller's shielded balance
+    alt Has public USDC
+        Monaris->>Monaris: Resolve seller's private address
+        Monaris->>Privacy: Shield USDC directly to seller
+        Privacy-->>Seller: Funds in seller's private balance
+    else Has shielded USDC
+        Monaris->>Privacy: Generate transfer proof
+        Privacy->>Privacy: Groth16 proof (~10-30s)
+        Privacy-->>Seller: Funds in seller's private balance
     end
 
-    Monaris->>Monaris: Record private receipt off-chain
-    Monaris->>Seller: Notification: "Invoice paid privately"
-    Monaris->>Monaris: Update invoice status + Score signal
+    Monaris->>Monaris: Generate private receipt
+    Monaris->>Seller: "Invoice paid privately"
+    Monaris->>Monaris: Update invoice status
+    Monaris->>Monaris: Register Score signal
 ```
 
-## When each mode is used
+After payment, the seller can:
+- **Keep funds shielded** — maintain private balance for future private payments
+- **Unshield to public wallet** — move funds back to their 0x address anytime
+- **Pay their own vendors privately** — private cashflow chain
 
-| Scenario | Mode | Why |
-|----------|------|-----|
-| Sender has public USDC, no shielded balance | Mode A | Shield directly to recipient — one tx |
-| Sender has shielded USDC from prior shield | Mode B | Private transfer within shielded pool |
-| Sender has both public and shielded USDC | Either | Monaris selects optimal path |
+---
 
-## What happens after payment
+## V2: Private Payment Router — The Future of Private Commerce
 
-Regardless of mode:
+<Note>
+**Coming in V2** — the architecture below describes where Monaris Private is heading.
+</Note>
 
-- **Invoice** is marked as cleared in the InvoiceRegistry
-- **Score signal** is registered (payment amount, timeliness)
-- **Private receipt** is stored off-chain for both parties
-- **Seller notification** is sent ("Invoice paid privately")
-- **Seller can unshield** received funds to their public wallet at any time
+Today, users explicitly choose to pay privately. In V2, **privacy becomes the default settlement path** for every payment through Monaris — not an opt-in feature, but the standard rail.
+
+### What the Private Payment Router does
+
+The Private Payment Router sits between every Monaris product and the settlement layer. Every invoice payment, every BNPL repayment, every payroll transfer — all route through it automatically.
+
+```mermaid
+flowchart TD
+    subgraph Products["Monaris Products"]
+        ARAP["AR/AP — Invoices"]
+        Credit["Credit & BNPL"]
+        Business["Business — Payroll"]
+        PayLater["Pay Later"]
+    end
+
+    subgraph Router["Private Payment Router (V2)"]
+        direction TB
+        Intercept["Intercept all payments"]
+        Intercept --> Resolve["Resolve private addresses"]
+        Resolve --> Route["Route through shielded pool"]
+        Route --> Settle["Settle privately"]
+        Settle --> Record["Record + Score signal"]
+    end
+
+    subgraph Output["Results"]
+        SellerBalance["Seller receives privately"]
+        Receipt["Encrypted receipt for both parties"]
+        ScoreUpdate["Score updated with verified signal"]
+        Compliance["Compliance proof available on request"]
+    end
+
+    Products --> Router --> Output
+
+    style Products fill:#1a1a2e,stroke:#CCFF04,color:#fff
+    style Router fill:#16213e,stroke:#0f3460,color:#fff
+    style Output fill:#0f3460,stroke:#CCFF04,color:#fff
+```
+
+### Private cashflow — a new primitive
+
+When sellers receive payments through the Private Payment Router, something powerful happens: **they build private cashflow history.**
+
+```
+Traditional cashflow:
+  Invoice cleared → payment on public chain → visible to everyone → Score
+
+Private cashflow (V2):
+  Invoice cleared → payment through Private Router → shielded from public view
+       ↓
+  Seller's private balance grows
+       ↓
+  Score still updates (verified internal signal)
+       ↓
+  Seller pays their vendors privately (chain continues)
+       ↓
+  Private cashflow history builds over time
+       ↓
+  Credit decisions based on verified private history
+```
+
+This means:
+- **Sellers build financial history** without exposing it publicly
+- **Competitors cannot map** client relationships, revenue, or vendor networks
+- **Payment patterns remain private** — no one can analyze frequency, size, or timing
+- **Credit decisions still work** — the MCA has access to verified internal data, not public chain data
+
+### What changes for users
+
+| Feature | V1 (now) | V2 (Private Router) |
+|---------|----------|---------------------|
+| Private payments | Opt-in per payment | Default for all payments |
+| Seller receives | Public or private (sender chooses) | Private by default |
+| Cashflow history | Public chain visible | Private, verified internally |
+| Score calculation | On-chain signals | Private verified signals |
+| Compliance | Manual selective disclosure | Automated compliance proofs |
+| Payroll | Public transactions | Fully private disbursements |
+| BNPL repayment | Public transactions | Private settlement |
+
+### Selective Disclosure in a private-first world
+
+Even with all payments private by default, users retain full control over what they prove:
+
+- **"This invoice was paid on time"** — ZK proof, no amount revealed
+- **"My monthly revenue exceeds $10,000"** — range proof, no individual payments revealed  
+- **"My Score is above 700"** — Score proof, no transaction history revealed
+- **"I paid this vendor"** — payment proof for compliance, no other payments revealed
+
+The proofs are generated client-side. No one — not even Monaris — can generate a proof about your data without your explicit action.
+
+---
+
+## The full privacy architecture
+
+```mermaid
+flowchart TD
+    subgraph User["User Layer"]
+        Wallet["Existing Wallet (0x)"]
+        OneClick["One-Click Interface"]
+    end
+
+    subgraph Derivation["Key Derivation"]
+        Sign["Sign once → deterministic derivation"]
+        PrivateWallet["Private Wallet (0zk)"]
+    end
+
+    subgraph Engine["Privacy Engine (in-browser)"]
+        WASM["WASM ZK Engine"]
+        Prover["Groth16 Prover"]
+        MerkleTree["Merkle Tree (local)"]
+        Artifacts["ZK Circuit Artifacts"]
+    end
+
+    subgraph Pool["Shielded Pool (on-chain)"]
+        Shield["Shield operations"]
+        Transfer["Private transfers"]
+        Unshield["Unshield operations"]
+        POI["Proof of Innocence"]
+    end
+
+    subgraph V2Router["Private Payment Router (V2)"]
+        AutoRoute["Auto-route all payments"]
+        PrivateCashflow["Build private cashflow"]
+        SelectiveDisclose["Selective disclosure engine"]
+    end
+
+    subgraph Monaris["Monaris Platform"]
+        Score["Score Engine"]
+        Invoices["Invoice System"]
+        Credit["Credit Engine"]
+        Receipts["Private Receipts"]
+    end
+
+    User --> Derivation
+    Derivation --> Engine
+    Engine --> Pool
+    Pool --> V2Router
+    V2Router --> Monaris
+
+    Wallet --> Sign --> PrivateWallet
+
+    style User fill:#1a1a2e,stroke:#CCFF04,color:#fff
+    style Derivation fill:#16213e,stroke:#0f3460,color:#fff
+    style Engine fill:#0f3460,stroke:#0f3460,color:#fff
+    style Pool fill:#16213e,stroke:#CCFF04,color:#fff
+    style V2Router fill:#1a1a2e,stroke:#CCFF04,color:#fff
+    style Monaris fill:#0f3460,stroke:#CCFF04,color:#fff
+```
+
+**This is the endgame:** a financial system where privacy is not a feature you toggle on — it is the infrastructure everything runs on. Payments are private. Cashflow is private. Credit decisions are made on verified private data. And the user controls exactly what to prove, to whom, and when.
+
+---
 
 ## Related
 
-- [Shield & Unshield Flows](/privacy/shield-unshield) — full details on shield/unshield mechanics
-- [POI Pipeline](/privacy/poi-pipeline) — how received funds become spendable
-- [Settlement Waterfall](/reference/settlement-waterfall) — the full on-chain settlement flow
+- [Key Derivation](/privacy/key-derivation) — how the private wallet is created
+- [Shield & Unshield Flows](/privacy/shield-unshield) — how funds enter and exit the shielded pool
+- [Secrets as a Service](/privacy/secrets-as-a-service) — programmable privacy rules and selective disclosure

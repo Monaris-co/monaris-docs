@@ -66,21 +66,15 @@ Users will be able to generate ZK proofs that prove specific claims without reve
 
 For developer-grade technical details on the privacy system:
 
-<CardGroup cols={2}>
+<CardGroup cols={3}>
   <Card title="Key Derivation" icon="key" href="/privacy/key-derivation">
-    How the RAILGUN 0zk wallet is derived from your 0x address — deterministically, client-side.
+    How the private wallet is derived from your existing address — deterministically, client-side.
   </Card>
-  <Card title="Shield & Unshield Flows" icon="shield-halved" href="/privacy/shield-unshield">
-    Engine initialization, shield flow, unshield flow, and the Groth16 proof system.
+  <Card title="Shield & Unshield" icon="shield-halved" href="/privacy/shield-unshield">
+    How funds move between public and private — engine init, shield flow, unshield flow, and the ZK proof system.
   </Card>
   <Card title="Private Payment Modes" icon="lock" href="/privacy/private-payment-modes">
-    Shield-to-Recipient vs Private Transfer — two modes for private payments.
-  </Card>
-  <Card title="POI Pipeline" icon="check-double" href="/privacy/poi-pipeline">
-    Proof of Innocence, balance buckets, SDK dependencies.
-  </Card>
-  <Card title="Storage Architecture" icon="database" href="/privacy/storage-architecture">
-    Client-side and off-chain storage design. Where keys live, what never leaves the browser.
+    Two modes for private payments today — and the Private Payment Router coming in V2.
   </Card>
 </CardGroup>
 
