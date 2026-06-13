@@ -1,0 +1,69 @@
+---
+title: Monaris Private
+description: Private-by-default stablecoin payments. Counterparties, amounts, and patterns are shielded. One button, zero gas, no protocol to learn.
+icon: Shield
+---
+
+<Callout title="Status: Live">
+  Private money movement is live. Every payment through Monaris routes privately by default.
+</Callout>
+
+Monaris Private is a private payment rail built on RAILGUN's shielded pool. Counterparties, amounts, and patterns are hidden from public chain view. You never touch a protocol. You see one button: **Pay privately.**
+
+## The UX breakthrough
+
+Most privacy tools force a separate wallet, manual funding, two balances, gas on every transaction, and an understanding of ZK circuits. Monaris removes all of it.
+
+| What you deal with | Other privacy tools | Monaris Private |
+|--------------------|---------------------|-----------------|
+| Wallet setup | Create a separate privacy wallet | Use your existing wallet |
+| Funding | Manually transfer in | One-click shield |
+| Addresses | Track public and private | One address |
+| Gas | Pay per transaction | Gasless, fees sponsored |
+| Proofs | Manual or CLI | Automatic, silent, in-browser |
+| Recovery | Lose keys, lose funds | Re-derivable from your signature |
+
+The result: privacy that feels like a feature toggle, not a protocol migration.
+
+## How it works
+
+1. Log in with your wallet. Monaris silently derives a RAILGUN wallet in the background.
+2. Click **Shield** to move USDC from your public balance into your private balance.
+3. Send private payments. One click, gasless, fully shielded.
+4. Recipient gets the full amount; a private receipt is stored. The invoice marks cleared and the Score signal registers.
+5. **Unshield** back to your public balance anytime.
+
+**What the chain sees:** a ZK proof that a valid transaction occurred. Not who, not how much, not the counterparty.
+**What you see:** "Payment sent privately." Receipt in account. Invoice cleared.
+
+## Privacy guarantees
+
+| Property | Status |
+|----------|--------|
+| Sender identity | Shielded (ZK proof) |
+| Recipient identity | Shielded (ZK proof) |
+| Transaction amount | Shielded (ZK proof) |
+| Payment patterns | No linkability between transactions |
+| Proof of payment | Available via Viewing Key, for compliance |
+
+## Secrets as a Service, programmable privacy
+
+Set rules that decide what stays private and what can be disclosed. They run automatically:
+
+- "All payments above $5,000 are always private."
+- "Payroll is private, but generate a verifiable receipt."
+- "Private by default, except when I choose to share a proof."
+
+**Selective disclosure** lets you prove a specific claim without revealing the data behind it: "this invoice was paid on time", "income exceeded $3,000 this month", "my Score is above 700".
+
+## FAQ
+
+**Do I need to do anything to make payments private?** No. Privacy is the default on every payment.
+
+**Do I manage a separate 0zk wallet?** No. It's derived automatically from your existing wallet; you never see it.
+
+**Can I make a payment public?** Yes. Transparency is opt-in.
+
+**Does privacy affect my Score?** No. The Score uses internal verified signals and is designed to coexist with full privacy.
+
+**Is proof generation done on a server?** No. All ZK proofs, key derivation, and wallet management run entirely in the browser. Servers never see unencrypted key material.
