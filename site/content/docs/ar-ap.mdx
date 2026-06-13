@@ -1,0 +1,77 @@
+---
+title: Monaris AR/AP
+description: Create invoices, track payments, manage payouts. Every cleared invoice builds your Monaris Score.
+icon: FileText
+---
+
+import { FlowSteps } from '@/components/diagrams';
+
+Monaris AR/AP is invoicing and payouts where every cleared invoice becomes financial proof. Your payment history turns into a credit identity. Built for anyone replacing bank wires with stablecoin settlement: freelancers, contractors, remote workers, and small teams.
+
+## The core loop
+
+The loop is simple, and every cycle makes you more creditworthy.
+
+<FlowSteps
+  steps={[
+    'Create invoice',
+    'Send',
+    'Client pays',
+    'Invoice clears',
+    'Score updates',
+    'Credit improves',
+  ]}
+  loop
+/>
+
+A cleared invoice is not just a payment. It is a data point: proof of a relationship, a payment pattern, a counterparty's reliability, and your own cashflow consistency.
+
+## Receivables (AR), money coming in
+
+- **Professional invoices** with amount, due date, description, and terms. Send to a wallet address or email; the client pays in one click.
+- **Instant settlement** in USDC or USDT. No bank holds, no wire fees, no 3-day wait.
+- **Automatic Score building.** Every cleared invoice adds points, you do nothing extra.
+
+Every invoice moves through four stages:
+
+| Status | What it means |
+|--------|---------------|
+| **Issued** | Sent, not yet opened |
+| **Viewed** | Recipient opened it |
+| **Paid** | Payment initiated |
+| **Cleared** | Funds received, Score updates |
+
+## Payouts (AP), money going out
+
+- **Manage what you owe**: vendor payments, contractor payouts, recurring obligations.
+- **Schedule and automate** payments, with vendor allowlists so only approved addresses receive funds.
+- **Multi-sig approval** for payouts above a set threshold.
+- Outgoing payments feed your **obligations coverage**, one of the six Score signals.
+
+## What Mona does here
+
+Mona watches every invoice and surfaces insights without being asked.
+
+> "Your invoice to Client A is 7 days overdue. Want me to send a reminder?"
+
+> "Client B has paid early three times in a row. That's your strongest counterparty."
+
+> "You cleared your 10th invoice. You've unlocked Established, here's what changed."
+
+## Why it's different
+
+QuickBooks collects your invoice data and does nothing with it. Monaris turns every invoice into a data point that builds a financial identity, one that unlocks credit, advances, and capital. No other invoicing tool does this, because none were built for the stablecoin economy.
+
+<Callout title="Get started">
+  Sign in at [app.monaris.co](https://app.monaris.co), hit **Create Invoice**, enter the amount, due date, description, and recipient, and send. When it clears, your Score updates automatically.
+</Callout>
+
+## FAQ
+
+**Do clients need a Monaris account to pay?** No. They pay via an email link, connect a wallet on the payment page, and complete the transaction.
+
+**Which stablecoins?** USDC and USDT for V1; more to follow.
+
+**What if a client doesn't pay?** Mona sends automated reminders at 7 and 30 days. Non-payment is the client's behavior, so it does not reduce your Score.
+
+**How do cleared invoices affect my Score?** Each one strengthens your payment consistency and volume history. The exact points depend on your current Score and overall pattern.
