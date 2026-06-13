@@ -1,0 +1,67 @@
+---
+title: What is Monaris
+description: A private financial operating system for the stablecoin economy. Onchain AR/AP, private payments, and income-backed credit, all tied together by one Score.
+icon: Sparkles
+---
+
+import { FileText, Shield, Award, Banknote } from 'lucide-react';
+import { ConnectMap } from '@/components/diagrams';
+
+Stablecoins solved global settlement. They did not solve cashflow.
+
+People earn in stablecoins, but the moment a payment lands it stops working. It builds no credit history, no financial identity, no access to capital against income already earned. Just a number in a wallet, waiting for the next invoice.
+
+**Monaris is the layer that makes stablecoin cashflow work.** Every invoice, every cleared payment, every on-time obligation builds a **Monaris Score**, a real-time financial identity powered by the Monaris Credit Algorithm (MCA). That Score unlocks instant capital, BNPL, and credit backed by income you have already earned. Not collateral. Not a bank. Your own cashflow.
+
+<Callout title="The one idea">
+  Your cashflow is your credit score. Measure it, keep it private, and borrow against it.
+</Callout>
+
+## What's live right now
+
+<Cards>
+  <Card title="Monaris AR/AP" href="/docs/ar-ap" icon={<FileText />}>
+    Create invoices, send them, get paid. Every cleared invoice becomes financial proof.
+  </Card>
+  <Card title="Monaris Private" href="/docs/private" icon={<Shield />}>
+    Send and receive stablecoins that are private by default. One click, zero gas.
+  </Card>
+  <Card title="Monaris Score" href="/docs/score-credit" icon={<Award />}>
+    A 0 to 1000 reputation built from verified cashflow. The product that unlocks everything else.
+  </Card>
+  <Card title="Monaris Credit" href="/docs/score-credit" icon={<Banknote />}>
+    Borrow against income history. Advances and BNPL that auto-repay from future invoices.
+  </Card>
+</Cards>
+
+## How everything connects
+
+Every product is useful on its own, but they share one spine: the **Score**. Each one feeds it, and the Score in turn makes the next one more powerful. The more you use Monaris, the stronger your financial identity becomes.
+
+<ConnectMap />
+
+## The four principles
+
+1. **Measure first, change nothing.** The MCA reads your existing cashflow. No new wallets, habits, or workflows required.
+2. **Privacy is the default.** Payments are private by default. Transparency is opt-in, never opt-out.
+3. **Score before credit. Always.** Credit is never shown until your Score has real depth: minimum 90 days of history and a qualifying tier.
+4. **One platform, modular products.** Use any product alone. All of them feed your Score.
+
+## Get value in 10 minutes
+
+1. Sign up at [app.monaris.co](https://app.monaris.co) with Google or email.
+2. **Create an invoice**, or **connect a wallet** so Monaris reads your last 90 days of history.
+3. When the invoice clears, your Score gets its first points, automatically.
+
+| Tier | What you need | What you unlock |
+|------|---------------|-----------------|
+| **Building** (0 to 510) | Start using Monaris | AR/AP, Private, cashflow picture |
+| **Established** (510 to 850) | 10+ invoices, $500+ volume | Score sharing, credit pre-approval |
+| **Trusted** (850 to 1000) | 25+ invoices, $5,000+ volume | Full credit access, priority terms |
+
+<Cards>
+  <Card title="Monaris AR/AP" href="/docs/ar-ap" description="Invoicing and payouts that build your Score." />
+  <Card title="Monaris Private" href="/docs/private" description="Private-by-default stablecoin payments." />
+  <Card title="Score & Credit" href="/docs/score-credit" description="The reputation engine and what it unlocks." />
+  <Card title="Mona AI" href="/docs/mona" description="The intelligence layer across every product." />
+</Cards>
