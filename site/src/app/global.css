@@ -176,7 +176,7 @@ html > body[data-scroll-locked] {
 }
 
 /* Primary "Open App" navbar CTA — bright lime + ink (the brand button) */
-nav a[href='https://app.monaris.co'] {
+nav a[href='https://stg.monaris.co'] {
   background-color: var(--mn-lime) !important;
   color: var(--mn-ink) !important;
   font-weight: 600;
@@ -185,11 +185,11 @@ nav a[href='https://app.monaris.co'] {
   transition: background-color 0.2s ease, box-shadow 0.2s ease,
     transform 0.2s ease;
 }
-nav a[href='https://app.monaris.co']:hover {
+nav a[href='https://stg.monaris.co']:hover {
   background-color: var(--mn-lime-hover) !important;
   box-shadow: var(--mn-shadow-lg);
 }
-nav a[href='https://app.monaris.co']:active {
+nav a[href='https://stg.monaris.co']:active {
   transform: scale(0.98);
 }
 

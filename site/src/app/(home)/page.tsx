@@ -93,7 +93,7 @@ export default function HomePage() {
             Read the docs <ArrowRight size={20} />
           </Link>
           <a
-            href="https://app.monaris.co"
+            href="https://stg.monaris.co"
             className="inline-flex h-14 items-center gap-2 rounded-xl border-2 px-10 text-lg font-semibold transition-colors"
             style={{ borderColor: 'var(--mn-lime)', color: 'var(--mn-lime-dark)' }}
           >
@@ -178,7 +178,7 @@ export default function HomePage() {
             paperwork.
           </p>
           <a
-            href="https://app.monaris.co"
+            href="https://stg.monaris.co"
             className="inline-flex h-14 items-center gap-2 rounded-xl px-10 text-lg font-semibold transition-colors"
             style={{
               background: '#ffffff',

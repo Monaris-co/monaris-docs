@@ -27,7 +27,7 @@ export function baseOptions(): BaseLayoutProps {
       {
         type: 'button',
         text: 'Open App',
-        url: 'https://app.monaris.co',
+        url: 'https://stg.monaris.co',
         external: true,
         secondary: true,
       },
