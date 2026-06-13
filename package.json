@@ -1,0 +1,12 @@
+{
+  "name": "monaris-docs",
+  "private": true,
+  "description": "Build entrypoint that delegates to the Fumadocs app in ./site",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "cd site && npm install --include=dev && npm run build",
+    "start": "cd site && npm run start"
+  }
+}

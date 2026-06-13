@@ -5,3 +5,8 @@
 # Draft content
 drafts/
 *.draft.mdx
+
+# Fumadocs app + deploy manifest (built separately, see ./site)
+site/
+package.json
+.node-version
