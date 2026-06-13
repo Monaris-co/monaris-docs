@@ -17,7 +17,6 @@ export const metadata: Metadata = {
   },
   description:
     'Monaris is a private financial operating system for the stablecoin economy: onchain AR/AP, private payments, and income-backed credit.',
-  icons: { icon: '/favicon.ico' },
 };
 
 export default function Layout({ children }: LayoutProps<'/'>) {
